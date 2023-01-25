@@ -13482,35 +13482,35 @@ static int8 skill_castend_id_check(struct block_list *src, struct block_list *ta
 		}
 			break;
 		case EM_SUMMON_ELEMENTAL_ARDOR:{
-			struct map_session_data *sd = map_id2sd(src->id);
+			map_session_data *sd = map_id2sd(src->id);
 			if (sd && (!sd->ed || !(sd->ed->elemental.class_ == ELEMENTALID_AGNI_L))) {
 				return USESKILL_FAIL_EL_SUMMON;
 			}
 		}
 			break;
 		case EM_SUMMON_ELEMENTAL_DILUVIO:{
-			struct map_session_data *sd = map_id2sd(src->id);
+			map_session_data *sd = map_id2sd(src->id);
 			if (sd && (!sd->ed || !(sd->ed->elemental.class_ == ELEMENTALID_AQUA_L))) {
 				return USESKILL_FAIL_EL_SUMMON;
 			}
 		}
 			break;
 		case EM_SUMMON_ELEMENTAL_PROCELLA:{
-			struct map_session_data *sd = map_id2sd(src->id);
+			map_session_data *sd = map_id2sd(src->id);
 			if (sd && (!sd->ed || !(sd->ed->elemental.class_ == ELEMENTALID_VENTUS_L))) {
 				return USESKILL_FAIL_EL_SUMMON;
 			}
 		}
 			break;
 		case EM_SUMMON_ELEMENTAL_TERREMOTUS:{
-			struct map_session_data *sd = map_id2sd(src->id);
+			map_session_data *sd = map_id2sd(src->id);
 			if (sd && (!sd->ed || !(sd->ed->elemental.class_ == ELEMENTALID_TERA_L))) {
 				return USESKILL_FAIL_EL_SUMMON;
 			}
 		}
 			break;
 		case EM_SUMMON_ELEMENTAL_SERPENS:{
-			struct map_session_data *sd = map_id2sd(src->id);
+			map_session_data *sd = map_id2sd(src->id);
 			if (sd && (!sd->ed || !((sd->ed->elemental.class_ == ELEMENTALID_AGNI_L)
 								|| (sd->ed->elemental.class_ == ELEMENTALID_AQUA_L)
 								|| (sd->ed->elemental.class_ == ELEMENTALID_VENTUS_L)
@@ -13521,7 +13521,7 @@ static int8 skill_castend_id_check(struct block_list *src, struct block_list *ta
 		}
 			break;
 		case EM_ELEMENTAL_BUSTER:{
-			struct map_session_data *sd = map_id2sd(src->id);
+			map_session_data *sd = map_id2sd(src->id);
 			if (sd && (!sd->ed || !(sd->ed->elemental.class_ >= ELEMENTALID_DILUVIO && sd->ed->elemental.class_ <= ELEMENTALID_SERPENS))) {
 				return USESKILL_FAIL_EL_SUMMON;
 			}
@@ -17864,7 +17864,7 @@ int skill_check_bl_sc(struct block_list *target, va_list ap) {
 
 	int sc_id = va_arg(ap,int);
 
-	struct status_change *sc = status_get_sc(target);
+	status_change *sc = status_get_sc(target);
 
 	if (sc && sc->getSCE(sc_id))
 		return 1;
