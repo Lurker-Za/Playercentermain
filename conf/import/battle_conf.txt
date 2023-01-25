@@ -1,0 +1,43 @@
+// Monster Dynamic Damage (5 = 1~5% Damage Reduction and x1~5 Damage (Set on spawn)
+max_monster_dynamic: 5
+
+// Monster Damage Multiplier (1 = Multiply Damage by x1)
+tb_monster_damage_multiplier: 3
+
+// Damage Penalty (1 = Set Damage to 0.1%)
+tb_damage_rate: 1000
+
+// Flee, Perfect Dodge Penalty (1 = Decrease by 1%)
+tb_flee_penalty: 25
+
+// Monster Damage Multiplier (1 = Multiply Damage by x1)
+tb2_monster_damage_multiplier: 5
+
+// Damage Penalty (1 = Set Damage to 0.1%)
+tb2_damage_rate: 100
+
+// Flee, Perfect Dodge Penalty (1 = Decrease by 1%)
+tb2_flee_penalty: 50
+
+// Monster Damage Multiplier (1 = Multiply Damage by x1)
+tb3_monster_damage_multiplier: 7
+
+// Damage Penalty (1 = Set Damage to 0.1%)
+tb3_damage_rate: 10
+
+// Flee, Perfect Dodge Penalty (1 = Decrease by 1%)
+tb3_flee_penalty: 75
+
+// Monster Damage Multiplier (1 = Multiply Damage by x1)
+tb4_monster_damage_multiplier: 9
+// Damage Penalty (1 = Set Damage to 0.1%)
+tb4_damage_rate: 1
+
+// Flee, Perfect Dodge Penalty (1 = Decrease by 1%)
+tb4_flee_penalty: 99
+
+// MvP Refine (1 = 0.01%)
+//item_rate_mvp_refine: 1
+
+// THE BOX KEY (1 = 0.01%)
+//item_rate_the_box_key: 1
