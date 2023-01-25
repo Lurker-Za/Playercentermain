@@ -35698,12 +35698,12 @@ Body:
       NoMail: true
       NoAuction: true
   - Id: 25311
-    AegisName: Piece_of_Black_Horn
+    AegisName: PieceOfBlackSpirit
     Name: Piece of Black Horn
     Type: Etc
     Weight: 10
   - Id: 25312
-    AegisName: Fine_Old_Doll
+    AegisName: OldDoll
     Name: Fine Old Doll
     Type: Etc
     Weight: 10
