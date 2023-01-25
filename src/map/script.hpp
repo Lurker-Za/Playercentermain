@@ -496,6 +496,7 @@ enum unitdata_mobtypes {
 	UMOB_RES,
 	UMOB_MRES,
 	UMOB_DAMAGETAKEN,
+	UMOB_DYNAMIC, // [Start]
 };
 
 enum unitdata_homuntypes {

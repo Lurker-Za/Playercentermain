@@ -1162,7 +1162,7 @@ int mob_spawn (struct mob_data *md)
 	md->last_linktime = tick;
 	md->dmgtick = tick - 5000;
 	md->last_pcneartime = 0;
-
+	md->dynamic = (int)(1 + (rnd() % battle_config.max_monster_dynamic));
 	t_tick c = tick - MOB_MAX_DELAY;
 
 	for (i = 0; i < MAX_MOBSKILL; i++)
@@ -2874,6 +2874,27 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				}
 			}
 
+			// THE BOX KEY [Start]
+			drop_rate = mob_getdroprate(src, md->db, cap_value(battle_config.item_rate_the_box_key * (rnd() % md->level), 0, 10000), drop_modifier);
+			if (rnd() % 10000 < drop_rate)
+			{
+				struct s_mob_drop mobdrop = {};
+				mobdrop.nameid = 40017;
+
+				mob_item_drop(md, dlist, mob_setdropitem(&mobdrop, 1, md->mob_id), 0, drop_rate, homkillonly || merckillonly);
+			}
+			// MvP Refine [Start]
+			if (md->db->mexp > 0) {
+				drop_rate = mob_getdroprate(src, md->db, cap_value(battle_config.item_rate_mvp_refine * (rnd() % (md->level / 9)), 0, 10000), drop_modifier);
+				if (rnd() % 10000 < drop_rate)
+				{
+					struct s_mob_drop mobdrop = {};
+					mobdrop.nameid = 40016;
+
+					mob_item_drop(md, dlist, mob_setdropitem(&mobdrop, 1, md->mob_id), 0, drop_rate, homkillonly || merckillonly);
+				}
+			}
+
 			// process script-granted zeny bonus (get_zeny_num) [Skotlex]
 			if( sd->bonus.get_zeny_num && rnd()%100 < sd->bonus.get_zeny_rate ) {
 				i = sd->bonus.get_zeny_num > 0 ? sd->bonus.get_zeny_num : -md->level * sd->bonus.get_zeny_num;
@@ -3014,6 +3035,9 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type)
 				if (temp != 10000) {
 					if(temp <= 0 && !battle_config.drop_rate0item)
 						temp = 1;
+
+					temp = mob_getdroprate(src, md->db, temp, 100); // MvP Drop should increase drop rates too. [Start]
+
 					if(rnd()%10000 >= temp) //if ==0, then it doesn't drop
 						continue;
 				}
@@ -4277,7 +4301,7 @@ bool MobDatabase::parseDropNode(std::string nodeName, const ryml::NodeRef& node,
 
 	// Find first empty spot
 	for( i = 0; i < max; i++ ){
-		if( drops[i].nameid == 0 ){
+		if (drops[i].nameid == 0) {
 			break;
 		}
 	}
@@ -4465,7 +4489,7 @@ uint64 MobDatabase::parseBodyNode(const ryml::NodeRef& node) {
 		mob->base_exp = static_cast<t_exp>(cap_value((double)exp * (double)battle_config.base_exp_rate / 100., 0, MAX_EXP));
 	} else {
 		if (!exists)
-			mob->base_exp = 0;
+			mob->base_exp = static_cast<t_exp>(cap_value((double)(mob->status.max_hp / 5) * (double)battle_config.base_exp_rate / 100., 0, MAX_EXP));
 	}
 	
 	if (this->nodeExists(node, "JobExp")) {
@@ -4477,7 +4501,7 @@ uint64 MobDatabase::parseBodyNode(const ryml::NodeRef& node) {
 		mob->job_exp = static_cast<t_exp>(cap_value((double)exp * (double)battle_config.job_exp_rate / 100., 0, MAX_EXP));
 	} else {
 		if (!exists)
-			mob->job_exp = 0;
+			mob->job_exp = static_cast<t_exp>(cap_value((double)(mob->status.max_hp / 5) * (double)battle_config.job_exp_rate / 100., 0, MAX_EXP));
 	}
 	
 	if (this->nodeExists(node, "MvpExp")) {

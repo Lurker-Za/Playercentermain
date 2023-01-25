@@ -1,0 +1,81 @@
+prontera,126,263,3	script	Grade	10078,{
+	setarray .@indices[1],EQI_HEAD_TOP,EQI_HEAD_MID,EQI_HEAD_LOW,EQI_ARMOR,EQI_HAND_L,EQI_HAND_R,EQI_GARMENT,EQI_SHOES,EQI_ACC_L,EQI_ACC_R,EQI_COSTUME_HEAD_TOP,EQI_COSTUME_HEAD_MID,EQI_COSTUME_HEAD_LOW,EQI_SHADOW_ARMOR,EQI_SHADOW_WEAPON,EQI_SHADOW_SHIELD,EQI_COSTUME_GARMENT,EQI_SHADOW_SHOES,EQI_SHADOW_ACC_L,EQI_SHADOW_ACC_R;
+	setarray .@equipLocations[1],256,512,1,16,32,2,4,64,128,8,1024,2048,4096,65536,131072,262144,8192,524288,2097152,1048576;
+	for(.@i = 1; .@i < getarraysize(.@indices); ++.@i){
+		if(getequipisequiped(.@indices[.@i])
+				&& getenchantgrade(.@indices[.@i]) < 4){
+			.@menu$ = .@menu$ + F_getpositionname(.@indices[.@i]);
+			.@isEquipped = 1;
+		}
+		.@menu$ = .@menu$ + ":";
+	}
+	
+	// Equipment checking
+	if (!.@isEquipped){
+		mes "ข้าไม่เห็นท่านกำลังสวมใส่ อุปกรณ์สวมใส่ ใด ๆ อยู่เลย..";
+		close;
+	}
+	
+	mes "โปรดเลือกอุปกรณ์สวมใส่";
+	next;
+	
+	// Equipment selection
+	.@menuSelected = select(.@menu$);
+	gradePartSelected = .@indices[.@menuSelected];
+	gradeItemIdSelected = getequipid(gradePartSelected);
+	gradeEquipLocationSelected = .@equipLocations[.@menuSelected];
+	
+	// Equipment checking
+	if(!getequipisequiped(gradePartSelected)){
+		mes "ท่านเลือกช่องที่ ไม่ได้สวมใส่อะไร.. อยู่เลยหนิ?";
+		close;
+	}
+	
+	// Equipment checking
+	if (callfunc("F_IsEquipIDHack",gradePartSelected,gradeItemIdSelected)){
+		mes "เอ๋? ท่านสลับอุปกรณ์สวมใส่ ระหว่างการดำเนินการหนิ!?";
+		close;
+	}
+	
+	// Upgrade mode selection
+	.@maxGrade = getarraysize(.gradeCostItemIds);
+	for(.@i = 0; .@i < .@maxGrade; .@i++)
+	mes "Grade " + GetGradeName(.@i + 1) + " ต้องการ " + F_InsertComma(.gradeCostItemAmount[.@i] / ($THANK_YOU ? 2 : .gradeDivider)) + " " + getitemname(.gradeCostItemIds[.@i]);
+	next;
+	.@upgradeMode = select("ทีละขั้น:ทีเดียวเกรด A:ยกเลิก");
+	if(.@upgradeMode == 3)
+	close;
+	
+	// Get current grade
+	.@currentGrade = getenchantgrade(gradePartSelected);
+	
+	.@loopAmount = (.@upgradeMode == 1) ? 1 : (4 - .@currentGrade);
+	
+	// Loop
+	for(.@i = 0; .@i < .@loopAmount; .@i++){
+		.@price = .gradeCostItemAmount[.@currentGrade] / ($THANK_YOU ? 2 : .gradeDivider);
+	
+		// Item checking
+		if(countitem(.gradeCostItemIds[.@currentGrade]) < .@price){
+			mes "ต้องการ " + F_InsertComma(.@price) + " " + getitemname(.gradeCostItemIds[.@currentGrade]);
+			close;
+		}
+		
+		delitem .gradeCostItemIds[.@currentGrade],.@price;
+		atcommand "@grade " + gradeEquipLocationSelected + " +1";
+		.@currentGrade++;
+	}
+	
+	specialeffect2 454;
+	mes getitemname(getequipid(gradePartSelected)) + " Grade " + GetGradeName(.@currentGrade);
+	close;
+	
+OnInit:
+	// Grade D, C, B, A
+	setarray .gradeCostItemIds,40017,40017,40017,40017;
+	setarray .gradeCostItemAmount,30,300,3000,9000;
+	.gradeDivider = 2;
+	// Information
+	waitingroom "เสริมแกร่งด้วย Grade",0;
+	end;
+}

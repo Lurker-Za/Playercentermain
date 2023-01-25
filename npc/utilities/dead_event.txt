@@ -1,0 +1,62 @@
+-	script	DeadEvent	-1,{
+	end;
+	
+OnPCDieEvent:
+	.@dead_map_name$ = strcharinfo(3);
+	
+	if((.@dead_map_name$ == "pvp_y_1-1")
+			|| (.@dead_map_name$ == "pvp_y_1-4")
+			|| (.@dead_map_name$ == "force_1-1")
+			|| (.@dead_map_name$ == "force_1-2")
+			|| (.@dead_map_name$ == "force_1-3")
+			|| (.@dead_map_name$ == "force_2-3")
+			|| (.@dead_map_name$ == "prontera")){
+		dispbottom "คุณตายใน Map ที่ไม่มีโทษใด ๆ";
+		end;
+	}
+	else{
+		if($THANK_YOU){
+			exp_multiplier = cap_value(exp_multiplier - 1,0,(INT_MAX - 1));
+			drop_multiplier = cap_value(drop_multiplier - 1,0,(INT_MAX - 1));
+			dispbottom "x EXP คงเหลือ: " + F_InsertComma((exp_multiplier * 100)) + "%";
+			dispbottom "x Drop คงเหลือ: " + F_InsertComma((drop_multiplier * 100)) + "%";
+		}
+		else{
+			exp_multiplier = 0;
+			drop_multiplier = 0;
+		}
+		
+		sc_end SC_EXPBOOST;
+		sc_end SC_ITEMBOOST;
+		
+		// Auto warp
+		if((.@dead_map_name$ == "bossnia_01")
+				|| (.@dead_map_name$ == "bossnia_02")
+				|| (.@dead_map_name$ == "bossnia_03")
+				|| (.@dead_map_name$ == "bossnia_04")
+				|| (.@dead_map_name$ == "tra_fild")
+				|| (.@dead_map_name$ == "lasa_sea")
+				|| (.@dead_map_name$ == "8@thts")
+				|| (.@dead_map_name$ == "1@halo"))
+		addtimer 1000,strnpcinfo(3) + "::OnWarp";
+		// World Boss Map
+		else if(.@dead_map_name$ == "x_prt"){
+			deltimer strnpcinfo(3) + "::OnWorldBossDead";
+			message strcharinfo(0),"หากยังตายอยู่ อีก 30 วินาทีจะ Warp ออกจาก Map";
+			addtimer 30000,strnpcinfo(3) + "::OnWorldBossDead";
+		}
+		
+		end;
+	}
+	
+	end;
+	
+OnWorldBossDead:
+	if(isdead())
+	warp "prontera",156,191;
+	end;
+
+OnWarp:
+	warp "prontera",156,191;
+	end;
+}

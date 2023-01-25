@@ -1,0 +1,132 @@
+x_prt	mapflag	tb4
+x_prt	mapflag	novending
+x_prt	mapflag	nochat
+x_prt	mapflag	noteleport
+x_prt	mapflag	nowarp
+x_prt	mapflag	nowarpto
+x_prt	mapflag	nosave
+x_prt	mapflag	nobranch
+x_prt	mapflag	notomb
+x_prt	mapflag	noexp
+x_prt	mapflag	noloot
+
+prontera,156,200,3	script	ห้อง World Boss	10007,{
+	.reward = cap_value((.baseReward - (.rewardMinus * $worldBossKilled)),.rewardMinimum,(INT_MAX - 1));
+	mes "วิธีเล่น";
+	mes "• ^FF2929ช่วยกันฆ่า Boss^000000";
+	mes "• ^FF2929รางวัล " + F_InsertComma(.reward) + "z^000000";
+	mes "---";
+	mes "โทษภายในห้อง";
+	mes "• ^FF2929Monster จะไม่ให้ EXP^000000";
+	mes "• ^FF2929Monster จะไม่ Drop Item^000000";
+	mes "• ^FF2929Damage จะเหลือ 0.001%^000000";
+	mes "• ^FF2929World Boss จะมีพลังป้องกัน\n(100 - จำนวนคนใน Map)%\n(ขณะนี้คือ: " + max(0,UMOB_DYNAMIC,(100 - getmapusers(.map_name$))) + "%)^000000";
+	mes "• ^FF2929Flee -99%^000000";
+	mes "• ^FF2929Perfect Dodge -99%^000000";
+	mes "• ^FF2929Monster จะโจมตีแรงขึ้น 9 เท่า^000000";
+	mes "• ^FF2929Cooldown หลังเข้าห้อง " + .delay + " วินาที (ต่อตัวละคร)^000000";
+	next;
+	menu "เข้า",-,"รายชื่อผู้สังหาร World Boss",L_WorldBossKiller;
+	
+	if (world_boss_room > gettimetick(2)){
+		mes "โปรดรอ " + (world_boss_room - gettimetick(2)) + " วินาที";
+		close;	
+	}
+	world_boss_room = gettimetick(2) + .delay;
+	
+	setpcblock PCBLOCK_ALL,true;
+	setpcblock PCBLOCK_MOVE,false;
+	addtimer 2000,strnpcinfo(3) + "::OnWarp";
+	announce strcharinfo(0) + " เข้าห้อง World Boss",bc_all;
+	warp .map_name$,0,0;
+	end;
+	
+	L_Donation:
+	if(Zeny < 2000000000){
+		mes "คุณมี Zeny ไม่เพียงพอ";
+		close;	
+	}
+	Zeny = cap_value((Zeny - 2000000000), 0, (INT_MAX - 1));
+	$worldBossKilled = 0;
+	announce strcharinfo(0) + " ได้บริจาค 2,000,000,000z เพื่อเป็นรางวัล World Boss!!",bc_all;
+	mes "เรียบร้อยแล้ว!";
+	close;
+	
+	L_WorldBossKiller:
+	for(.@i = 0; .@i < getarraysize($worldBossKillers$); .@i++)
+	mes (.@i + 1) + ".) " + $worldBossKillers$[.@i];
+	mes "---";
+	close;
+	
+OnWarp:
+	setpcblock PCBLOCK_ALL,false;
+	setunitdata $worldBossGID,UMOB_DYNAMIC,max(0,(100 - getmapusers(.map_name$)));
+	end;
+	
+OnCleanUp:
+	.no_respawn = 1;
+	killmonster .map_name$,strnpcinfo(0) + "::OnBossDead";
+	callsub L_Spawn;
+	.no_respawn = 0;
+	end;
+	
+	L_Spawn:
+	for(.@i = 0; .@i < .spawn_amount; .@i++)
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	return;
+	
+OnBossDead:
+	if(!playerattached())
+	end;
+
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	end;
+	
+	L_SpawnWorldBoss:
+	monster .map_name$,70,55,"--ja--",31998,1,strnpcinfo(0) + "::OnWorldBossDead",Size_Large;
+	$worldBossGID = $@mobid[0];
+	getunitdata $worldBossGID,.@worldBossDatas;
+	setunitdata $worldBossGID,UMOB_DYNAMIC,max(0,(100 - getmapusers(.map_name$)));
+	getunitdata $worldBossGID,.@worldBossDatas;
+	return;
+	
+OnWorldBossDead:
+
+	callsub L_SpawnWorldBoss;
+
+	.reward = cap_value((.baseReward - (.rewardMinus * $worldBossKilled)),.rewardMinimum,(INT_MAX - 1));
+	
+	announce strcharinfo(0) + " ได้ฆ่า World Boss ชื่อของเขาจะถูกจารึกเอาไว้ และเขาได้รับ " + F_InsertComma(.reward) + "z!!",bc_all;
+
+	Zeny = cap_value((Zeny + .reward), 0, (INT_MAX - 1));
+	
+	$worldBossKilled++;
+	
+	for(.@i = 0; .@i < getarraysize($worldBossKillers$); .@i++){
+		if($worldBossKillers$[.@i] == strcharinfo(0))
+		end;
+	}
+	
+	setarray $worldBossKillers$[getarraysize($worldBossKillers$)],strcharinfo(0);
+	
+	end;
+	
+OnInit:
+	.map_name$ = "x_prt";
+	
+	.spawn_amount = 15;
+	
+	.delay = 180;
+	
+	.baseReward = 2000000000;
+	.rewardMinus = 100000000;
+	.rewardMinimum = 1000000;
+	
+	waitingroom "ห้อง World Boss",0;
+	
+	callsub L_Spawn;
+	
+	callsub L_SpawnWorldBoss;
+	
+	end;
+}

@@ -1,0 +1,15 @@
+-	script	MacroDetection	-1,{
+	end;
+	
+OnInit:
+	initnpctimer;
+	end;
+	
+OnTimer1800000:
+	initnpctimer;
+	addrid(0);
+	if((strcharinfo(3) != "prontera")
+			&& (strcharinfo(3) != "sec_pri"))
+	macro_detector();
+	end;
+}

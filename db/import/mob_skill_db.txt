@@ -1,0 +1,106 @@
+// Custom Mob Skill Database
+//
+// Structure of Database:
+// MobID,Dummy value (info only),State,SkillID,SkillLv,Rate,CastTime,Delay,Cancelable,Target,Condition type,Condition value,val1,val2,val3,val4,val5,Emotion,Chat
+//
+// RATE: the chance of the skill being casted when the condition is fulfilled (10000 = 100%).
+// DELAY: the time (in milliseconds) before attempting to recast the same skill.
+//
+// STATE:
+//	any (except dead) / idle (in standby) / walk (in movement) / dead (on killed) /
+//	loot /attack / angry (like attack, except player has not attacked mob yet) /
+//	chase (following target, after being attacked) / follow (following target,
+//	without being attacked) / anytarget (attack+angry+chase+follow)
+//
+// TARGET:
+//	target (current target) / self / friend / master / randomtarget (any enemy within skill's range)
+//
+//	The following are for ground-skills, a random target tile is selected from the specified area:
+//	    around1 (3x3 area around self) / around2 (5x5 area around self) /
+//	    around3 (7x7 area around self) / around4 (9x9 area around self) /
+//	    around5 (3x3 area around target) / around6 (5x5 area around target) /
+//	    around7 (7x7 area around target) / around8 (9x9 area around target) /
+//	    around = around4
+//
+// CONDITION:
+//	always			Unconditional (no condition value).
+//	onspawn			When mob spawns/respawns (no condition value).
+//	myhpltmaxrate		When mob's HP drops to the specified %.
+//	myhpinrate		When mob's HP is in a certain % range (condition value = lower bound, val1 = upper bound).
+//	mystatuson		If mob has the specified abnormality in status.
+//	mystatusoff		If mob has ended the specified abnormality in status.
+//	friendhpltmaxrate	When mob's friend's HP drops to the specified %.
+//	friendhpinrate		When mob's friend's HP is in a certain % range (condition value = lower bound, val1 = upper bound).
+//	friendstatuson		If friend has the specified abnormality in status.
+//	friendstatusoff		If friend has ended the specified abnormality in status.
+//	attackpcgt		When attack PCs become greater than specified number.
+//	attackpcge		When attack PCs become greater than or equal to the specified number.
+//	slavelt			When number of slaves is less than the original specified number.
+//	slavele			When number of slaves is less than or equal to the original specified number.
+//	closedattacked		When close range melee attacked (no condition value).
+//	longrangeattacked	When long range attacked, ex. bows, guns, ranged skills (no condition value).
+//	skillused		When the specified skill is used on the mob.
+//	afterskill		After mob casts the specified skill.
+//	casttargeted		When a target is in cast range (no condition value).
+//	rudeattacked		When mob is rude attacked (no condition value).
+//
+//	Status abnormalities specified through the statuson/statusoff system:
+//	    anybad (any type of state change) / stone / freeze / stun / sleep /
+//	    poison / curse / silence / confusion / blind / hiding / sight (unhidden)
+//
+// Note: if a negative MobID is provided, the skill will be treated as 'global':
+//	-1: added for all boss types.
+//	-2: added for all normal types.
+//	-3: added for all mobs.
+
+// Here you can place your custom mob skills
+1873,Beelzebub@NPC_METAMORPHOSIS,any,193,1,10000,0,0,no,self,onspawn,,1874,,,,,,
+31998,World Boss@NPC_HELLJUDGEMENT,any,662,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDESILENCE,any,663,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDEFREEZE,any,664,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDEBLEEDING,any,665,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDESTONE,any,666,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDECONFUSE,any,667,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDESLEEP,any,668,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_EVILLAND,any,670,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_MAGICMIRROR,any,671,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_SLOWCAST,any,672,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_CRITICALWOUND,any,673,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_EXPULSION,any,674,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_STONESKIN,any,675,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_ANTIMAGIC,any,676,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDECURSE,any,677,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDESTUN,any,678,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_VAMPIRE_GIFT,any,679,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDESOULDRAIN,any,680,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_HELLPOWER,any,683,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDEHELLDIGNITY,any,684,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_MILLENNIUMSHIELD,any,707,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_COMET,any,708,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_PULSESTRIKE2,any,712,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_DANCINGBLADE,any,713,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_DARKPIERCING,any,715,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_MAXPAIN,any,716,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_DEATHSUMMON,any,718,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_JACKFROST,any,720,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDEWEB,any,721,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_WIDESUCK,any,722,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_STORMGUST2,any,723,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_FIRESTORM,any,724,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_REVERBERATION,any,725,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_LEX_AETERNA,any,727,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_ARROWSTORM,any,728,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_SR_CURSEDCIRCLE,any,730,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_DRAGONBREATH,any,731,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_FATALMENACE,any,732,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_MAGMA_ERUPTION,any,733,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_MANDRAGORA,any,735,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_PSYCHIC_WAVE,any,736,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_RAYOFGENESIS,any,737,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_VENOMIMPRESS,any,738,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_CLOUD_KILL,any,739,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_IGNITIONBREAK,any,740,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_PHANTOMTHRUST,any,741,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_POISON_BUSTER,any,742,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_HALLUCINATIONWALK,any,743,10,500,0,0,no,randomtarget,always,,,,,,,,
+31998,World Boss@NPC_ELECTRICWALK,any,744,10,500,0,0,no,randomtarget,always,,,,,,,,

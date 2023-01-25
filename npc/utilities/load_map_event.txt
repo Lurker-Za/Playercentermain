@@ -1,0 +1,11 @@
+prontera	mapflag	loadevent
+
+-	script	LoadMapEvent	-1,{
+	end;
+	
+OnPCLoadMapEvent:
+	if(strcharinfo(3) == "prontera")
+	bonus_script_clear 1;
+
+	end;
+}

@@ -1,0 +1,9 @@
+-	script	UnblockAllCommands	-1,{
+OnInit:
+	bindatcmd "unblockall",strnpcinfo(3) + "::OnUnblockAll",99,99;
+	end;
+	
+OnUnblockAll:
+	query_sql "UPDATE `login` SET `state` = '0'";	
+	end;
+}

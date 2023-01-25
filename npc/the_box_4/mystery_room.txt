@@ -1,0 +1,120 @@
+herosria	mapflag	tb2
+herosria	mapflag	novending
+herosria	mapflag	nochat
+herosria	mapflag	noteleport
+herosria	mapflag	nowarp
+herosria	mapflag	nowarpto
+herosria	mapflag	nosave
+herosria	mapflag	nobranch
+herosria	mapflag	notomb
+
+prontera,163,210,1	script	ห้อง Monster สุ่ม	10007,{
+	mes "โทษภายในห้อง";
+	mes "• ^FF2929Damage จะเหลือ 0.1%^000000";
+	mes "• ^FF2929Flee -50%^000000";
+	mes "• ^FF2929Perfect Dodge -50%^000000";
+	mes "• ^FF2929Monster จะโจมตีแรงขึ้น 5 เท่า^000000";
+	mes "• ^FF2929Monster HP: " + F_InsertComma(.monsterHp) + "^000000";
+	mes "• ^FF2929Monster ก้าวร้าว^000000";
+	mes "• ^FF2929Cooldown หลังเข้าห้อง " + .delay + " วินาที (ต่อตัวละคร)^000000";
+	next;
+	menu "เข้า",-,"แลกรางวัล (คุณมี " + F_InsertComma(mysteryScore) + " แต้ม)",L_Trade;
+	
+	if (mysteryRoom > gettimetick(2)){
+		mes "โปรดรอ " + (mysteryRoom - gettimetick(2)) + " วินาที";
+		close;	
+	}
+	mysteryRoom = gettimetick(2) + .delay;
+	
+	setpcblock PCBLOCK_ALL,true;
+	setpcblock PCBLOCK_MOVE,false;
+	addtimer 2000,strnpcinfo(3) + "::OnWarp";
+	announce strcharinfo(0) + " เข้าห้อง Monster สุ่ม (Damage 0.1%)",bc_all;
+	warp .map_name$,0,0;
+	end;
+	
+	L_Trade:
+	mes "คุณมี " + F_InsertComma(mysteryScore) + " แต้ม";
+	next;
+	menu "แลก " + F_InsertComma(.zenyReward) + "z",L_Zeny
+	,"แลก " + F_InsertComma(.zenyReward) + "z ทีเดียวหมด",L_AllInZeny
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId),L_Item
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId) + " ทีเดียวหมด",L_AllInItem
+	,"ใช้ " + F_InsertComma(.mvpRefinePrice) + " แต้ม แลก " + getitemname(.mvpRefineItemId),L_MvpRefine
+	;
+	
+	L_AllInZeny:
+	callfunc("MvPTradeZeny",1,1,.zenyReward,.variableName$);
+	close;
+	
+	L_Zeny:
+	callfunc("MvPTradeZeny",0,1,.zenyReward,.variableName$);
+	close;
+	
+	L_AllInItem:
+	callfunc("MvPTradeItem",1,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_Item:
+	callfunc("MvPTradeItem",0,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_MvpRefine:
+	callfunc("MvPTradeItem",0,.mvpRefinePrice,.mvpRefineItemId,1,.variableName$);
+	close;
+	
+OnWarp:
+	setpcblock PCBLOCK_ALL,false;
+	end;
+	
+OnCleanUp:
+	.no_respawn = 1;
+	killmonsterall .map_name$;
+	callsub L_Spawn;
+	.no_respawn = 0;
+	end;
+
+OnBossDead:
+	if(!playerattached())
+	end;
+
+	mysteryScore++;
+	callsub L_SpawnMonster;
+	end;
+	
+	L_Spawn:
+	for(.@i = 0; .@i < .spawn_amount; .@i++)
+	callsub L_SpawnMonster;
+	return;
+	
+	L_SpawnMonster:
+	.@randomMonsterId = $all_mob_ids[rand(0,($all_mob_id_size - 1))];
+	while(F_IsDummyMonster(.@randomMonsterId))
+	.@randomMonsterId = $all_mob_ids[rand(0,($all_mob_id_size - 1))];
+	monster .map_name$,0,0,"--ja--",.@randomMonsterId,1,strnpcinfo(0) + "::OnBossDead";
+	setunitdata $@mobid[0],UMOB_MAXHP,.monsterHp;
+	setunitdata $@mobid[0],UMOB_HP,.monsterHp;
+	setunitdata $@mobid[0],UMOB_MODE,(MD_CANMOVE | MD_AGGRESSIVE | MD_CANATTACK | MD_ANGRY | MD_MVP | MD_KNOCKBACKIMMUNE | MD_DETECTOR | MD_STATUSIMMUNE);
+	return;
+	
+OnInit:
+	.map_name$ = "herosria";
+	
+	.monsterHp = 100000000;
+	.spawn_amount = 100;
+	
+	.delay = 30;
+	
+	.zenyReward = 200000;
+	.itemRewardId = 40017;
+	.itemRewardAmount = 2;
+	.mvpRefineItemId = 40016;
+	.mvpRefinePrice = 300;
+	.variableName$ = "mysteryScore";
+	
+	waitingroom "ห้อง Monster สุ่ม (Damage 0.1%)",0;
+	
+	callsub L_Spawn;
+	
+	end;
+}

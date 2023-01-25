@@ -1,0 +1,38 @@
+prontera,101,257,5	script	ซื้อ x EXP	10364,{
+	mes "• ^FF2929ตายแล้วต้องซื้อใหม่^000000";
+	mes "---";
+	mes "ปัจจุบัน EXP +^3629FF" + (100 * exp_multiplier) + "%";
+	next;
+	.@menu$ = "";
+	.@count = getarraysize(.exp_multiplier);
+	for(.@i = 0; .@i < .@count; .@i++)
+	.@menu$ = .@menu$ + "+" + (100 * getd(".exp_multiplier[" + .@i + "]")) + "% (" + F_InsertComma(getd(".prices[" + .@i + "]")) + "z):";
+
+	.@select = (select(.@menu$) - 1);
+	
+	.@multiplier = getd(".exp_multiplier[" + .@select + "]");
+	.@price = getd(".prices[" + .@select + "]");
+	
+	if(.@multiplier <= exp_multiplier){
+		mes "จำนวนที่เลือกน้อยกว่าหรือเท่ากับปัจจุบัน";
+		close;
+	}
+	
+	if(Zeny < .@price){
+		mes "ต้องการ " + F_InsertComma(.@price) + "z";
+		close;
+	}
+	else{
+		Zeny -= .@price;
+		exp_multiplier = .@multiplier;
+		mes "ปัจจุบัน EXP +^3629FF" + (100 * exp_multiplier) + "%";
+		F_ExpMultiplier();
+		close;
+	}
+
+OnInit:
+	setarray .exp_multiplier[0],3,9,25,50,75,100,150;
+	setarray .prices[0],1000,15000,150000,500000,3000000,10000000,100000000;
+	waitingroom "ซื้อ x EXP",0;
+	end;
+}

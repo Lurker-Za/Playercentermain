@@ -1,0 +1,553 @@
+function	script	F_MarketContain	{
+	for(.@i = 0; .@i < getarraysize($market); .@i++){
+		if($market[.@i] == getarg(0))
+		return true;
+	}
+	return false;
+}
+function	script	F_Market2Contain	{
+	for(.@i = 0; .@i < getarraysize($market2); .@i++){
+		if($market2[.@i] == getarg(0))
+		return true;
+	}
+	return false;
+}
+function	script	F_Market3Contain	{
+	for(.@i = 0; .@i < getarraysize($market3); .@i++){
+		if($market3[.@i] == getarg(0))
+		return true;
+	}
+	return false;
+}
+function	script	F_Market4Contain	{
+	for(.@i = 0; .@i < getarraysize($market4); .@i++){
+		if($market4[.@i] == getarg(0))
+		return true;
+	}
+	return false;
+}
+
+prontera,53,54,5	script	บอกเวลาคงเหลือ	837,{
+	end;
+	
+OnTimer60000:
+	delwaitingroom;
+	waitingroom "ของจะเปลี่ยนใน " + (10 - (gettime(DT_MINUTE) % 10)) + "m",0;
+	initnpctimer;
+	end;
+	
+OnInit:
+	waitingroom "ของจะเปลี่ยนใน " + (10 - (gettime(DT_MINUTE) % 10)) + "m",0;
+	initnpctimer;
+	end;
+}
+
+prontera,53,48,5	script	แจ้งเตือนของที่อยากได้	837,{
+	if(wish_item_alert)
+	mes "ขณะนี้คุณตั้งแจ้งเตือนหาก ^3629FF" + getitemname(wish_item_alert) + "^000000 ปรากฎในกล่องใด ๆ\n• ระบบจะแจ้งอัตโนมัติ ^FF2929ทุก ๆ xx:x1น.^000000 (หลัง Item ในกล่องถูกเปลี่ยน 1 นาที)\n• กรณีผู้เล่นคุยกับ NPC ค้างไว้ ^FF2929ระบบจะไม่แจ้ง (กันบัค)^000000";
+	else
+	mes "คุณยังไม่ได้ตั้งการแจ้งเตือนของที่อยากได้";
+	next;
+	menu "^3629FFตั้งแจ้งเตือนหาก Item ปรากฎในกล่อง THE BOX^000000",L_AlertSetting,"^FF2929นำการแจ้งเตือนออก^000000",-,"ตรวจเดี๋ยวนี้",L_Check;
+	wish_item_alert = 0;
+	mes "นำการแจ้งเตือนออกเรียบร้อยแล้ว";
+	close;
+	
+	L_Check:
+	if(wish_item_alert){
+		.@is_found_item_in_market = 0;
+		
+		freeloop(1);
+		
+		if(F_MarketContain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			mes "กล่อง THE BOX #1\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!";
+		}
+		
+		if(F_Market2Contain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			mes "กล่อง THE BOX #2\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!";
+		}
+		
+		if(F_Market3Contain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			mes "กล่อง THE BOX #3\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!";
+		}
+		
+		if(F_Market4Contain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			mes "กล่อง THE BOX #4\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!";
+		}
+		
+		freeloop(0);
+		
+		if(!.@is_found_item_in_market )
+		mes "ไม่มี Item ที่คุณต้องการภายในรอบนี้..";
+		
+		close;
+	}
+	else{
+		mes "คุณยังไม่ได้ตั้งการแจ้งเตือนของที่อยากได้";
+		close;
+	}
+
+	L_AlertSetting:
+	mes "ระบุ Item ID ที่ต้องการให้แจ้งเตือน";
+	input .@i;
+	next;
+	wish_item_alert = F_IsItemIdAvailable(.@i);
+	mes "ขณะนี้คุณตั้งแจ้งเตือนหาก ^3629FF" + getitemname(wish_item_alert) + "^000000 ปรากฎในกล่อง THE BOX";
+	close;
+	
+OnMinute01:
+OnMinute11:
+OnMinute21:
+OnMinute31:
+OnMinute41:
+OnMinute51:
+	addrid(0,1);
+	if(wish_item_alert){
+		.@is_found_item_in_market = 0;
+		
+		freeloop(1);
+		
+		if(F_MarketContain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			announce "กล่อง THE BOX #1\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!",bc_self;
+		}
+		
+		if(F_Market2Contain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			announce "กล่อง THE BOX #2\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!",bc_self;
+		}
+		
+		if(F_Market3Contain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			announce "กล่อง THE BOX #3\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!",bc_self;
+		}
+		
+		if(F_Market4Contain(wish_item_alert)){
+			.@is_found_item_in_market = 1;
+			
+			announce "กล่อง THE BOX #4\nมี ^3629FF" + getitemname(wish_item_alert) + "^000000 !!",bc_self;
+		}
+		
+		freeloop(0);
+		
+		if(!.@is_found_item_in_market )
+		announce "ไม่มี Item ที่คุณต้องการภายในรอบนี้..",bc_self;
+		
+		end;
+	}
+	end;
+OnInit:
+	waitingroom "ตั้งค่าการแจ้งเตือน",0;
+	initnpctimer;
+	end;
+}
+
+prontera,53,60,5	script	วิธีใช้กล่อง	837,{
+	mes "• ใช้ ^3629FF" + getitemname(.item_id) + "^000000 ในการเปิด";
+	mes "• Item ภายในกล่อง^3629FFจะเปลี่ยนทุก ๆ xx:x0น.^000000 จะได้ Item ตามรายการ";
+	menu "ดูของในกล่อง THE BOX #1",L_THE_BOX,
+	"ดูของในกล่อง THE BOX #2",L_THE_BOX2,
+	"ดูของในกล่อง THE BOX #3",L_THE_BOX3,
+	"ดูของในกล่อง THE BOX #4",L_THE_BOX4,
+	"เปิดกล่องทีเดียวหมดตัว [" + (is_manual_tap_the_box ? "^FF2929ปิดอยู่^000000" : "^3629FFเปิดอยู่^000000") + "]",-;
+	is_manual_tap_the_box = !is_manual_tap_the_box;
+	message strcharinfo(0),"เปิดกล่องทีเดียวหมดตัว [" + (is_manual_tap_the_box ? "ปิด" : "เปิด") + "]";
+	end;
+	
+OnBuyItem:
+	end;
+	
+	L_THE_BOX:
+	.@shop_name$ = "THE_BOX";
+	close2;
+	callshop .@shop_name$,1;
+	npcshopattach .@shop_name$;
+	end;
+	
+	L_THE_BOX2:
+	.@shop_name$ = "THE_BOX2";
+	close2;
+	callshop .@shop_name$,1;
+	npcshopattach .@shop_name$;
+	end;
+	
+	L_THE_BOX3:
+	.@shop_name$ = "THE_BOX3";
+	close2;
+	callshop .@shop_name$,1;
+	npcshopattach .@shop_name$;
+	end;
+	
+	L_THE_BOX4:
+	.@shop_name$ = "THE_BOX4";
+	close2;
+	callshop .@shop_name$,1;
+	npcshopattach .@shop_name$;
+	end;
+	
+	L_CleanShop:
+	npcshopdelitem "THE_BOX",501;
+	npcshopdelitem "THE_BOX2",501;
+	npcshopdelitem "THE_BOX3",501;
+	npcshopdelitem "THE_BOX4",501;
+	for(.@i = 0; .@i < getarraysize($market); .@i++)
+	npcshopdelitem "THE_BOX",$market[.@i];
+	for(.@i = 0; .@i < getarraysize($market2); .@i++)
+	npcshopdelitem "THE_BOX2",$market2[.@i];
+	for(.@i = 0; .@i < getarraysize($market3); .@i++)
+	npcshopdelitem "THE_BOX3",$market3[.@i];
+	for(.@i = 0; .@i < getarraysize($market4); .@i++)
+	npcshopdelitem "THE_BOX4",$market4[.@i];
+	return;
+
+	L_Initial:
+	if($market_hours_v2 == gettime(DT_HOUR)){
+		for(.@i = 0; .@i < getarraysize($market); .@i++)
+		npcshopadditem "THE_BOX",$market[.@i],1;
+		for(.@i = 0; .@i < getarraysize($market2); .@i++)
+		npcshopadditem "THE_BOX2",$market2[.@i],1;
+		for(.@i = 0; .@i < getarraysize($market3); .@i++)
+		npcshopadditem "THE_BOX3",$market3[.@i],1;
+		for(.@i = 0; .@i < getarraysize($market4); .@i++)
+		npcshopadditem "THE_BOX4",$market4[.@i],1;
+		
+		freeloop(0);
+		
+		return;
+	}
+	
+OnMinute00:
+OnMinute10:
+OnMinute20:
+OnMinute30:
+OnMinute40:
+OnMinute50:
+	$market_hours_v2 = gettime(DT_HOUR);
+	
+	freeloop(1);
+	
+	callsub L_CleanShop;
+	
+	deletearray $market[0],getarraysize($market);
+	deletearray $market2[0],getarraysize($market2);
+	deletearray $market3[0],getarraysize($market3);
+	deletearray $market4[0],getarraysize($market4);
+	
+	// Market
+	for(.@i = 0; .@i < 100; .@i++){
+		.@rand = rand(1,5);
+		if(.@rand == 1){
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			while(F_MarketContain(.@item_id))
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			setarray $market[getarraysize($market)],.@item_id;
+		}
+		else if(.@rand == 2){
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			while(F_MarketContain(.@item_id))
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			setarray $market[getarraysize($market)],.@item_id;
+		}
+		else if(.@rand == 3){
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			while(F_MarketContain(.@item_id))
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			setarray $market[getarraysize($market)],.@item_id;
+		}
+		else if(.@rand == 4){
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			while(F_MarketContain(.@item_id))
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			setarray $market[getarraysize($market)],.@item_id;
+		}
+		else{
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			while(F_MarketContain(.@item_id))
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			setarray $market[getarraysize($market)],.@item_id;
+		}
+	}
+	// Market 2
+	for(.@i = 0; .@i < 100; .@i++){
+		.@rand = rand(1,5);
+		if(.@rand == 1){
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			setarray $market2[getarraysize($market2)],.@item_id;
+		}
+		else if(.@rand == 2){
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			setarray $market2[getarraysize($market2)],.@item_id;
+		}
+		else if(.@rand == 3){
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			setarray $market2[getarraysize($market2)],.@item_id;
+		}
+		else if(.@rand == 4){
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			setarray $market2[getarraysize($market2)],.@item_id;
+		}
+		else{
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			setarray $market2[getarraysize($market2)],.@item_id;
+		}
+	}
+	// Market 3
+	for(.@i = 0; .@i < 100; .@i++){
+		.@rand = rand(1,5);
+		if(.@rand == 1){
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			while(F_Market3Contain(.@item_id))
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			setarray $market3[getarraysize($market3)],.@item_id;
+		}
+		else if(.@rand == 2){
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			setarray $market3[getarraysize($market3)],.@item_id;
+		}
+		else if(.@rand == 3){
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			setarray $market3[getarraysize($market3)],.@item_id;
+		}
+		else if(.@rand == 4){
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			setarray $market3[getarraysize($market3)],.@item_id;
+		}
+		else{
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			setarray $market3[getarraysize($market3)],.@item_id;
+		}
+	}
+	// Market 4
+	for(.@i = 0; .@i < 100; .@i++){
+		.@rand = rand(1,5);
+		if(.@rand == 1){
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $weaponIds[rand(0,(getarraysize($weaponIds) - 1))];
+			setarray $market4[getarraysize($market4)],.@item_id;
+		}
+		else if(.@rand == 2){
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $equipmentIds[rand(0,(getarraysize($equipmentIds) - 1))];
+			setarray $market4[getarraysize($market4)],.@item_id;
+		}
+		else if(.@rand == 3){
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $costumeIds[rand(0,(getarraysize($costumeIds) - 1))];
+			setarray $market4[getarraysize($market4)],.@item_id;
+		}
+		else if(.@rand == 4){
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $cardIds[rand(0,(getarraysize($cardIds) - 1))];
+			setarray $market4[getarraysize($market4)],.@item_id;
+		}
+		else{
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			while(F_Market2Contain(.@item_id))
+			.@item_id = $enchantIds[rand(0,(getarraysize($enchantIds) - 1))];
+			setarray $market4[getarraysize($market4)],.@item_id;
+		}
+	}
+	
+	callsub L_Initial;
+	
+	freeloop(0);
+	
+	end;
+	
+OnInit:
+	.item_id = 40017;
+
+	waitingroom strnpcinfo(0),0;
+	
+	freeloop(1);
+	
+	callsub L_CleanShop;
+
+	callsub L_Initial;
+	
+	freeloop(0);
+	
+	end;
+}
+
+prontera,58,58,5	script	THE BOX #1	10249,{
+	menu "เริ่มสุ่ม (ใช้ " + .amount + " ดอก)",-;
+	if(countitem(.item_id) < .amount)
+	message strcharinfo(0),"คุณไม่มี " + .amount + " " + getitemname(.item_id);
+	else{
+		freeloop(1);
+		
+		while(countitem(.item_id) >= .amount){
+			// Random reward
+			.@reward_item_id = $market[rand(0,(getarraysize($market) - 1))];
+			// Check weight
+			if(!checkweight(6825,1)){
+				message strcharinfo(0),"น้ำหนักเต็ม (ต้องว่างอย่างน้อย 1000 น้ำหนัก)";
+				freeloop(0);
+				end;
+			}
+			// Trade
+			delitem .item_id,.amount;
+			getitem .@reward_item_id,1;
+			// Not using automatic tap
+			if(is_manual_tap_the_box)
+			break;
+		}
+		
+		freeloop(0);
+		
+	}
+	end;
+	
+OnInit:
+	.item_id = 40017;
+	.amount = 1;
+	waitingroom strnpcinfo(0),0;
+	end;
+}
+
+prontera,62,62,5	script	THE BOX #2	10249,{
+	menu "เริ่มสุ่ม (ใช้ " + .amount + " ดอก)",-;
+	if(countitem(.item_id) < .amount)
+	message strcharinfo(0),"คุณไม่มี " + .amount + " " + getitemname(.item_id);
+	else{
+		freeloop(1);
+		
+		while(countitem(.item_id) >= .amount){
+			// Random reward
+			.@reward_item_id = $market2[rand(0,(getarraysize($market2) - 1))];
+			// Check weight
+			if(!checkweight(6825,1)){
+				message strcharinfo(0),"น้ำหนักเต็ม (ต้องว่างอย่างน้อย 1000 น้ำหนัก)";
+				freeloop(0);
+				end;
+			}
+			// Trade
+			delitem .item_id,.amount;
+			getitem .@reward_item_id,1;
+			// Not using automatic tap
+			if(is_manual_tap_the_box)
+			break;
+		}
+		
+		freeloop(0);
+		
+	}
+	end;
+	
+OnInit:
+	.item_id = 40017;
+	.amount = 2;
+	waitingroom strnpcinfo(0),0;
+	end;
+}
+
+prontera,68,58,5	script	THE BOX #3	10249,{
+	menu "เริ่มสุ่ม (ใช้ " + .amount + " ดอก)",-;
+	if(countitem(.item_id) < .amount)
+	message strcharinfo(0),"คุณไม่มี " + .amount + " " + getitemname(.item_id);
+	else{
+		freeloop(1);
+		
+		while(countitem(.item_id) >= .amount){
+			// Random reward
+			.@reward_item_id = $market3[rand(0,(getarraysize($market3) - 1))];
+			// Check weight
+			if(!checkweight(6825,1)){
+				message strcharinfo(0),"น้ำหนักเต็ม (ต้องว่างอย่างน้อย 1000 น้ำหนัก)";
+				freeloop(0);
+				end;
+			}
+			// Trade
+			delitem .item_id,.amount;
+			getitem .@reward_item_id,1;
+			// Not using automatic tap
+			if(is_manual_tap_the_box)
+			break;
+		}
+		
+		freeloop(0);
+		
+	}
+	end;
+	
+OnInit:
+	.item_id = 40017;
+	.amount = 3;
+	waitingroom strnpcinfo(0),0;
+	end;
+}
+
+prontera,72,62,5	script	THE BOX #4	10249,{
+	menu "เริ่มสุ่ม (ใช้ " + .amount + " ดอก)",-;
+	if(countitem(.item_id) < .amount)
+	message strcharinfo(0),"คุณไม่มี " + .amount + " " + getitemname(.item_id);
+	else{
+		freeloop(1);
+		
+		while(countitem(.item_id) >= .amount){
+			// Random reward
+			.@reward_item_id = $market4[rand(0,(getarraysize($market4) - 1))];
+			// Check weight
+			if(!checkweight(6825,1)){
+				message strcharinfo(0),"น้ำหนักเต็ม (ต้องว่างอย่างน้อย 1000 น้ำหนัก)";
+				freeloop(0);
+				end;
+			}
+			// Trade
+			delitem .item_id,.amount;
+			getitem .@reward_item_id,1;
+			// Not using automatic tap
+			if(is_manual_tap_the_box)
+			break;
+		}
+		
+		freeloop(0);
+		
+	}
+	end;
+	
+OnInit:
+	.item_id = 40017;
+	.amount = 4;
+	waitingroom strnpcinfo(0),0;
+	end;
+}
+
+-	shop	THE_BOX	-1,no,501:-1
+-	shop	THE_BOX2	-1,no,501:-1
+-	shop	THE_BOX3	-1,no,501:-1
+-	shop	THE_BOX4	-1,no,501:-1

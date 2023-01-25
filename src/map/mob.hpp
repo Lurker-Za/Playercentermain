@@ -382,6 +382,8 @@ struct mob_data {
 	int tomb_nid;
 	uint16 damagetaken;
 
+	int dynamic; // [Start]
+
 	e_mob_bosstype get_bosstype();
 };
 

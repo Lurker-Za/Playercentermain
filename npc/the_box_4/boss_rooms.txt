@@ -1,0 +1,439 @@
+vis_h01	mapflag	tb
+vis_h01	mapflag	pvp
+vis_h01	mapflag	novending
+vis_h01	mapflag	nochat
+vis_h01	mapflag	noteleport
+vis_h01	mapflag	nowarp
+vis_h01	mapflag	nowarpto
+vis_h01	mapflag	nosave
+vis_h01	mapflag	nobranch
+vis_h01	mapflag	notomb
+
+vis_h02	mapflag	tb2
+vis_h02	mapflag	pvp
+vis_h02	mapflag	novending
+vis_h02	mapflag	nochat
+vis_h02	mapflag	noteleport
+vis_h02	mapflag	nowarp
+vis_h02	mapflag	nowarpto
+vis_h02	mapflag	nosave
+vis_h02	mapflag	nobranch
+vis_h02	mapflag	notomb
+
+vis_h03	mapflag	tb3
+vis_h03	mapflag	pvp
+vis_h03	mapflag	novending
+vis_h03	mapflag	nochat
+vis_h03	mapflag	noteleport
+vis_h03	mapflag	nowarp
+vis_h03	mapflag	nowarpto
+vis_h03	mapflag	nosave
+vis_h03	mapflag	nobranch
+vis_h03	mapflag	notomb
+
+vis_h04	mapflag	tb4
+vis_h04	mapflag	pvp
+vis_h04	mapflag	novending
+vis_h04	mapflag	nochat
+vis_h04	mapflag	noteleport
+vis_h04	mapflag	nowarp
+vis_h04	mapflag	nowarpto
+vis_h04	mapflag	nosave
+vis_h04	mapflag	nobranch
+vis_h04	mapflag	notomb
+
+prontera,148,200,1	script	ห้อง Boss ที่ 1	10007,{
+	mes "โทษภายในห้อง";
+	mes "• ^FF2929เป็นห้อง PvP^000000";
+	mes "• ^FF2929Damage จะเหลือ 1%^000000";
+	mes "• ^FF2929Flee -25%^000000";
+	mes "• ^FF2929Perfect Dodge -25%^000000";
+	mes "• ^FF2929Monster จะโจมตีแรงขึ้น 3 เท่า^000000";
+	mes "• ^FF2929Cooldown หลังเข้าห้อง " + .delay + " วินาที (ต่อตัวละคร)^000000";
+	next;
+	menu "เข้า",-,"แลกรางวัล (คุณมี " + F_InsertComma(bossScore1) + " แต้ม)",L_Trade;
+	
+	if (boss_room_1 > gettimetick(2)){
+		mes "โปรดรอ " + (boss_room_1 - gettimetick(2)) + " วินาที";
+		close;	
+	}
+	boss_room_1 = gettimetick(2) + .delay;
+	
+	setpcblock PCBLOCK_ALL,true;
+	setpcblock PCBLOCK_MOVE,false;
+	addtimer 2000,strnpcinfo(3) + "::OnWarp";
+	announce strcharinfo(0) + " เข้าห้อง Boss (Damage 1%)",bc_all;
+	warp .map_name$,0,0;
+	end;
+	
+	L_Trade:
+	mes "คุณมี " + F_InsertComma(bossScore1) + " แต้ม";
+	next;
+	menu "แลก " + F_InsertComma(.zenyReward) + "z",L_Zeny
+	,"แลก " + F_InsertComma(.zenyReward) + "z ทีเดียวหมด",L_AllInZeny
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId),L_Item
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId) + " ทีเดียวหมด",L_AllInItem
+	,"ใช้ " + F_InsertComma(.mvpRefinePrice) + " แต้ม แลก " + getitemname(.mvpRefineItemId),L_MvpRefine
+	;
+	
+	L_AllInZeny:
+	callfunc("MvPTradeZeny",1,1,.zenyReward,.variableName$);
+	close;
+	
+	L_Zeny:
+	callfunc("MvPTradeZeny",0,1,.zenyReward,.variableName$);
+	close;
+	
+	L_AllInItem:
+	callfunc("MvPTradeItem",1,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_Item:
+	callfunc("MvPTradeItem",0,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_MvpRefine:
+	callfunc("MvPTradeItem",0,.mvpRefinePrice,.mvpRefineItemId,1,.variableName$);
+	close;
+	
+OnWarp:
+	setpcblock PCBLOCK_ALL,false;
+	end;
+	
+OnCleanUp:
+	.no_respawn = 1;
+	killmonsterall .map_name$;
+	callsub L_Spawn;
+	.no_respawn = 0;
+	end;
+	
+OnBossDead:
+	if(!playerattached())
+	end;
+
+	bossScore1++;
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	end;
+	
+	L_Spawn:
+	for(.@i = 0; .@i < .spawn_amount; .@i++)
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	return;
+	
+OnInit:
+	.map_name$ = "vis_h01";
+	
+	.spawn_amount = 50;
+	
+	.delay = 360;
+	
+	.zenyReward = 100000;
+	.itemRewardId = 40017;
+	.itemRewardAmount = 1;
+	.mvpRefineItemId = 40016;
+	.mvpRefinePrice = 100;
+	.variableName$ = "bossScore1";
+	
+	waitingroom "ห้อง Boss (Damage 1%)",0;
+	
+	callsub L_Spawn;
+	
+	end;
+}
+
+prontera,148,205,1	script	ห้อง Boss ที่ 2	10007,{
+	mes "โทษภายในห้อง";
+	mes "• ^FF2929เป็นห้อง PvP^000000";
+	mes "• ^FF2929Damage จะเหลือ 0.1%^000000";
+	mes "• ^FF2929Flee -50%^000000";
+	mes "• ^FF2929Perfect Dodge -50%^000000";
+	mes "• ^FF2929Monster จะโจมตีแรงขึ้น 5 เท่า^000000";
+	mes "• ^FF2929Cooldown หลังเข้าห้อง " + .delay + " วินาที (ต่อตัวละคร)^000000";
+	next;
+	menu "เข้า",-,"แลกรางวัล (คุณมี " + F_InsertComma(bossScore2) + " แต้ม)",L_Trade;
+	
+	if (boss_room_2 > gettimetick(2)){
+		mes "โปรดรอ " + (boss_room_2 - gettimetick(2)) + " วินาที";
+		close;	
+	}
+	boss_room_2 = gettimetick(2) + .delay;
+	
+	setpcblock PCBLOCK_ALL,true;
+	setpcblock PCBLOCK_MOVE,false;
+	addtimer 2000,strnpcinfo(3) + "::OnWarp";
+	announce strcharinfo(0) + " เข้าห้อง Boss (Damage 0.1%)",bc_all;
+	warp .map_name$,0,0;
+	end;
+	
+	L_Trade:
+	mes "คุณมี " + F_InsertComma(bossScore2) + " แต้ม";
+	next;
+	menu "แลก " + F_InsertComma(.zenyReward) + "z",L_Zeny
+	,"แลก " + F_InsertComma(.zenyReward) + "z ทีเดียวหมด",L_AllInZeny
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId),L_Item
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId) + " ทีเดียวหมด",L_AllInItem
+	,"ใช้ " + F_InsertComma(.mvpRefinePrice) + " แต้ม แลก " + getitemname(.mvpRefineItemId),L_MvpRefine
+	;
+	
+	L_AllInZeny:
+	callfunc("MvPTradeZeny",1,1,.zenyReward,.variableName$);
+	close;
+	
+	L_Zeny:
+	callfunc("MvPTradeZeny",0,1,.zenyReward,.variableName$);
+	close;
+	
+	L_AllInItem:
+	callfunc("MvPTradeItem",1,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_Item:
+	callfunc("MvPTradeItem",0,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_MvpRefine:
+	callfunc("MvPTradeItem",0,.mvpRefinePrice,.mvpRefineItemId,1,.variableName$);
+	close;
+	
+OnWarp:
+	setpcblock PCBLOCK_ALL,false;
+	end;
+	
+OnCleanUp:
+	.no_respawn = 1;
+	killmonsterall .map_name$;
+	callsub L_Spawn;
+	.no_respawn = 0;
+	end;
+
+OnBossDead:
+	if(!playerattached())
+	end;
+
+	bossScore2++;
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	end;
+	
+	L_Spawn:
+	for(.@i = 0; .@i < .spawn_amount; .@i++)
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	return;
+	
+OnInit:
+	.map_name$ = "vis_h02";
+	
+	.spawn_amount = 50;
+	
+	.delay = 360;
+	
+	.zenyReward = 200000;
+	.itemRewardId = 40017;
+	.itemRewardAmount = 2;
+	.mvpRefineItemId = 40016;
+	.mvpRefinePrice = 75;
+	.variableName$ = "bossScore2";
+	
+	waitingroom "ห้อง Boss (Damage 0.1%)",0;
+	
+	callsub L_Spawn;
+	
+	end;
+}
+
+prontera,148,210,1	script	ห้อง Boss ที่ 3	10007,{
+	mes "โทษภายในห้อง";
+	mes "• ^FF2929เป็นห้อง PvP^000000";
+	mes "• ^FF2929Damage จะเหลือ 0.01%^000000";
+	mes "• ^FF2929Flee -75%^000000";
+	mes "• ^FF2929Perfect Dodge -75%^000000";
+	mes "• ^FF2929Monster จะโจมตีแรงขึ้น 7 เท่า^000000";
+	mes "• ^FF2929Cooldown หลังเข้าห้อง " + .delay + " วินาที (ต่อตัวละคร)^000000";
+	next;
+	menu "เข้า",-,"แลกรางวัล (คุณมี " + F_InsertComma(bossScore3) + " แต้ม)",L_Trade;
+	
+	if (boss_room_3 > gettimetick(2)){
+		mes "โปรดรอ " + (boss_room_3 - gettimetick(2)) + " วินาที";
+		close;	
+	}
+	boss_room_3 = gettimetick(2) + .delay;
+	
+	setpcblock PCBLOCK_ALL,true;
+	setpcblock PCBLOCK_MOVE,false;
+	addtimer 2000,strnpcinfo(3) + "::OnWarp";
+	announce strcharinfo(0) + " เข้าห้อง Boss (Damage 0.01%)",bc_all;
+	warp .map_name$,0,0;
+	end;
+	
+	L_Trade:
+	mes "คุณมี " + F_InsertComma(bossScore3) + " แต้ม";
+	next;
+	menu "แลก " + F_InsertComma(.zenyReward) + "z",L_Zeny
+	,"แลก " + F_InsertComma(.zenyReward) + "z ทีเดียวหมด",L_AllInZeny
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId),L_Item
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId) + " ทีเดียวหมด",L_AllInItem
+	,"ใช้ " + F_InsertComma(.mvpRefinePrice) + " แต้ม แลก " + getitemname(.mvpRefineItemId),L_MvpRefine
+	;
+	
+	L_AllInZeny:
+	callfunc("MvPTradeZeny",1,1,.zenyReward,.variableName$);
+	close;
+	
+	L_Zeny:
+	callfunc("MvPTradeZeny",0,1,.zenyReward,.variableName$);
+	close;
+	
+	L_AllInItem:
+	callfunc("MvPTradeItem",1,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_Item:
+	callfunc("MvPTradeItem",0,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_MvpRefine:
+	callfunc("MvPTradeItem",0,.mvpRefinePrice,.mvpRefineItemId,1,.variableName$);
+	close;
+	
+OnWarp:
+	setpcblock PCBLOCK_ALL,false;
+	end;
+	
+OnCleanUp:
+	.no_respawn = 1;
+	killmonsterall .map_name$;
+	callsub L_Spawn;
+	.no_respawn = 0;
+	end;
+
+OnBossDead:
+	if(!playerattached())
+	end;
+
+	bossScore3++;
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	end;
+	
+	L_Spawn:
+	for(.@i = 0; .@i < .spawn_amount; .@i++)
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	return;
+	
+OnInit:
+	.map_name$ = "vis_h03";
+	
+	.spawn_amount = 50;
+	
+	.delay = 360;
+	
+	.zenyReward = 400000;
+	.itemRewardId = 40017;
+	.itemRewardAmount = 4;
+	.mvpRefineItemId = 40016;
+	.mvpRefinePrice = 50;
+	.variableName$ = "bossScore3";
+	
+	waitingroom "ห้อง Boss (Damage 0.01%)",0;
+	
+	callsub L_Spawn;
+	
+	end;
+}
+
+prontera,148,215,1	script	ห้อง Boss ที่ 4	10007,{
+	mes "โทษภายในห้อง";
+	mes "• ^FF2929เป็นห้อง PvP^000000";
+	mes "• ^FF2929Damage จะเหลือ 0.001%^000000";
+	mes "• ^FF2929Flee -99%^000000";
+	mes "• ^FF2929Perfect Dodge -99%^000000";
+	mes "• ^FF2929Monster จะโจมตีแรงขึ้น 9 เท่า^000000";
+	mes "• ^FF2929Cooldown หลังเข้าห้อง " + .delay + " วินาที (ต่อตัวละคร)^000000";
+	next;
+	menu "เข้า",-,"แลกรางวัล (คุณมี " + F_InsertComma(bossScore4) + " แต้ม)",L_Trade;
+	
+	if (boss_room_4 > gettimetick(2)){
+		mes "โปรดรอ " + (boss_room_4 - gettimetick(2)) + " วินาที";
+		close;	
+	}
+	boss_room_4 = gettimetick(2) + .delay;
+	
+	setpcblock PCBLOCK_ALL,true;
+	setpcblock PCBLOCK_MOVE,false;
+	addtimer 2000,strnpcinfo(3) + "::OnWarp";
+	announce strcharinfo(0) + " เข้าห้อง Boss (Damage 0.001%)",bc_all;
+	warp .map_name$,0,0;
+	end;
+	
+	L_Trade:
+	mes "คุณมี " + F_InsertComma(bossScore4) + " แต้ม";
+	next;
+	menu "แลก " + F_InsertComma(.zenyReward) + "z",L_Zeny
+	,"แลก " + F_InsertComma(.zenyReward) + "z ทีเดียวหมด",L_AllInZeny
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId),L_Item
+	,"แลก " + F_InsertComma(.itemRewardAmount) + " " + getitemname(.itemRewardId) + " ทีเดียวหมด",L_AllInItem
+	,"ใช้ " + F_InsertComma(.mvpRefinePrice) + " แต้ม แลก " + getitemname(.mvpRefineItemId),L_MvpRefine
+	;
+	
+	L_AllInZeny:
+	callfunc("MvPTradeZeny",1,1,.zenyReward,.variableName$);
+	close;
+	
+	L_Zeny:
+	callfunc("MvPTradeZeny",0,1,.zenyReward,.variableName$);
+	close;
+	
+	L_AllInItem:
+	callfunc("MvPTradeItem",1,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_Item:
+	callfunc("MvPTradeItem",0,1,.itemRewardId,.itemRewardAmount,.variableName$);
+	close;
+	
+	L_MvpRefine:
+	callfunc("MvPTradeItem",0,.mvpRefinePrice,.mvpRefineItemId,1,.variableName$);
+	close;
+	
+OnWarp:
+	setpcblock PCBLOCK_ALL,false;
+	end;
+	
+OnCleanUp:
+	.no_respawn = 1;
+	killmonsterall .map_name$;
+	callsub L_Spawn;
+	.no_respawn = 0;
+	end;
+
+OnBossDead:
+	if(!playerattached())
+	end;
+
+	bossScore4++;
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	end;
+	
+	L_Spawn:
+	for(.@i = 0; .@i < .spawn_amount; .@i++)
+	monster .map_name$,0,0,"--ja--",$all_boss_ids[rand(0,($all_boss_id_size - 1))],1,strnpcinfo(0) + "::OnBossDead";
+	return;
+	
+OnInit:
+	.map_name$ = "vis_h04";
+	
+	.spawn_amount = 50;
+	
+	.delay = 360;
+	
+	.zenyReward = 800000;
+	.itemRewardId = 40017;
+	.itemRewardAmount = 8;
+	.mvpRefineItemId = 40016;
+	.mvpRefinePrice = 25;
+	.variableName$ = "bossScore4";
+	
+	waitingroom "ห้อง Boss (Damage 0.001%)",0;
+	
+	callsub L_Spawn;
+	
+	end;
+}

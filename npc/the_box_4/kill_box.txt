@@ -1,0 +1,103 @@
+prontera,163,205,5	script	Kill Box	888,{
+	// Still had target
+	if(killBoxTarget){
+		if(killBoxCount > 0){
+			if(getmonsterinfo(killBoxTarget,MOB_MVPEXP) > 0){
+				mes "เราได้ยกเลิกภารกิจและ Reset ค่าใช้จ่ายให้ถูกที่สุด เนื่องจากคุณได้รับภารกิจที่ผิดพลาด";
+				next;
+				goto L_FreeAbortKillBox;
+			}
+			mes "คุณต้องล่า \nLv." + getmonsterinfo(killBoxTarget,MOB_LV) + " " + getmonsterinfo(killBoxTarget,MOB_NAME) + " (" + killBoxTarget + ")" +"\nอีก " + killBoxCount + " ตัว";
+			atcommand "@whereis " + killBoxTarget;
+			next;
+			menu "เข้าใจแล้ว",-,"ยกเลิกภารกิจ",L_AbortKillBox;
+			close;
+		}
+		else{
+			// Check weight
+			if(!checkweight(6825,1)){
+				message strcharinfo(0),"น้ำหนักเต็ม (ต้องว่างอย่างน้อย 1000 น้ำหนัก)";
+				end;
+			}
+			// Give reward
+			mes "เจ๋ง! รับรางวัลไปเลย";
+			while(killBoxReward > 0){
+				killBoxReward--;
+				getitem $itemGroupIds[rand(0,getarraysize($itemGroupIds) - 1)],1;
+			}
+			killBoxTarget = 0;
+			killBoxCount = 0;
+			close;
+		}
+	}
+	// Not had target
+	else{
+		if(killBoxLastAccepted - gettimetick(2) <= 0)
+		killBoxZenyMultiplier = 0;
+		mes "คุณต้องการล่า Monster เพื่อสุ่มรับกล่องสุ่มหรือไม่?";
+		if(killBoxZenyMultiplier > 0)
+		mes "ค่ารับภารกิจจะถูกลงภายใน " + F_InsertComma(killBoxLastAccepted - gettimetick(2)) + " วินาที";
+		next;
+		menu "รับ (ค่าใช้จ่าย " + F_InsertComma(.basePrice * (1 + killBoxZenyMultiplier)) + "z)",-;
+		if(Zeny < (.basePrice * (1 + killBoxZenyMultiplier))){
+			mes "Zeny ไม่เพียงพอ";
+			close;
+		}
+		else{
+			Zeny -= (.basePrice * (1 + killBoxZenyMultiplier));
+			killBoxZenyMultiplier++;
+			killBoxLastAccepted = gettimetick(2) + .delay;
+			
+			killBoxCount = rand(.minTarget,.maxTarget);
+			killBoxReward = cap_value((killBoxCount / 10) * 2,0,10);
+			killBoxTarget = $all_mob_ids[rand(0,($all_mob_id_size - 1))];
+			
+			freeloop(1);
+			.@retry = 300;
+			while(.@retry > 0){
+				.@retry--;
+				if(!F_IsDummyMonster(killBoxTarget)
+						&& (getmonsterinfo(.@i,MOB_MVPEXP) <= 0)){
+					.@mobLevel = getmonsterinfo(killBoxTarget,MOB_LV);
+					.@diff = (BaseLevel > .@mobLevel) ? (BaseLevel - .@mobLevel) : (.@mobLevel - BaseLevel);
+					// Player level < 175 will use 15 level range
+					if((BaseLevel < 175)
+							&& (.@diff <= 15))
+					break;
+					// Otherwise will use monster level 175+ for player level 175+
+					else if((BaseLevel >= 175)
+							&& (.@mobLevel >= 175))
+					break;
+				}
+				killBoxTarget = $all_mob_ids[rand(0,($all_mob_id_size - 1))];
+			}
+			freeloop(0);
+			
+			mes "คุณต้องล่า \nLv." + getmonsterinfo(killBoxTarget,MOB_LV) + " " + getmonsterinfo(killBoxTarget,MOB_NAME) + " (" + killBoxTarget + ")" + "\nอีก " + killBoxCount + " ตัว";
+			atcommand "@whereis " + killBoxTarget;
+			next;
+			menu "เข้าใจแล้ว",-;
+			close;
+		}
+	}
+	
+	L_FreeAbortKillBox:
+	killBoxZenyMultiplier = 0;
+	L_AbortKillBox:
+	killBoxTarget = 0;
+	killBoxCount = 0;
+	mes "ยกเลิกภารกิจเรียบร้อยแล้ว";
+	close;
+	
+OnNPCKillEvent:
+	callfunc("KillBoxUpdate");
+	end;
+	
+OnInit:
+	.basePrice = 15000;
+	.delay = 10800;
+	.minTarget = 15;
+	.maxTarget = 50;
+	waitingroom "ภารกิจ Kill Box สุ่มรับกล่องสุ่ม",0;
+	end;
+}

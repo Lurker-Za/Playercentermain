@@ -178,15 +178,17 @@ uint64 ItemDatabase::parseBodyNode(const ryml::NodeRef& node) {
 
 			item->subtype = static_cast<e_ammo_type>(constant);
 		} else if (item->type == IT_CARD) {
-			std::string type_constant = "CARD_" + type;
+			item->subtype = CARD_NORMAL; // [Start]
+			/*std::string type_constant = "CARD_" + type;
 			int64 constant;
 
+			
 			if (!script_get_constant(type_constant.c_str(), &constant) || constant < CARD_NORMAL || constant >= MAX_CARD_TYPE) {
 				this->invalidWarning(node["SubType"], "Invalid card type %s, defaulting to CARD_NORMAL.\n", type.c_str());
 				item->subtype = CARD_NORMAL;
 			}
 
-			item->subtype = static_cast<e_card_type>(constant);
+			item->subtype = static_cast<e_card_type>(constant);*/
 		} else {
 			this->invalidWarning(node["SubType"], "Item sub type is not supported for this item type.\n");
 			return 0;
@@ -563,7 +565,7 @@ uint64 ItemDatabase::parseBodyNode(const ryml::NodeRef& node) {
 			item->elvmax = MAX_LEVEL;
 	}
 
-	if (this->nodeExists(node, "Refineable")) {
+	if (this->nodeExists(node, "RefineableNoUse")) { // [Start]
 		bool refine;
 
 		if (!this->asBool(node, "Refineable", refine))
@@ -572,7 +574,7 @@ uint64 ItemDatabase::parseBodyNode(const ryml::NodeRef& node) {
 		item->flag.no_refine = !refine;
 	} else {
 		if (!exists)
-			item->flag.no_refine = true;
+			item->flag.no_refine = false; // [Start]
 	}
 
 	if (this->nodeExists(node, "Gradable")) {
@@ -870,7 +872,7 @@ uint64 ItemDatabase::parseBodyNode(const ryml::NodeRef& node) {
 			item->stack.guild_storage = false;
 		}
 	}
-	
+
 	if (this->nodeExists(node, "NoUse")) {
 		const auto& nouseNode = node["NoUse"];
 
@@ -909,8 +911,8 @@ uint64 ItemDatabase::parseBodyNode(const ryml::NodeRef& node) {
 		}
 	}
 
-	if (this->nodeExists(node, "Trade")) {
-		const auto& tradeNode = node["Trade"];
+	if (this->nodeExists(node, "TradeNoUse")) { // [Start]
+		const auto& tradeNode = node["TradeNoUse"];
 
 		if (this->nodeExists(tradeNode, "Override")) {
 			uint16 override;
@@ -3152,7 +3154,7 @@ char itemdb_isidentified(t_itemid nameid) {
 		case IT_ARMOR:
 		case IT_PETARMOR:
 		case IT_SHADOWGEAR:
-			return 0;
+			return 1; // [Start]
 		default:
 			return 1;
 	}

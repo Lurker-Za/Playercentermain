@@ -1,0 +1,11 @@
+prontera,95,248,5	script	µ’∫«°	10366,{
+	mes "ï ^FF2929µ’‰¡Ëµ‘¥¡’‚Õ°“ ·µ° 50%^000000";
+	mes "ï MvP Refine ^3629FFµ‘¥ 100%^000000";
+	next;
+	refineui;
+	end;
+	
+OnInit:
+	waitingroom "µ’∫«°",0;
+	end;
+}

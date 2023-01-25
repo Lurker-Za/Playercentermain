@@ -1,0 +1,218 @@
+function	script	F_ExpMultiplier	{
+	sc_end SC_EXPBOOST;
+	sc_start SC_EXPBOOST,86400000,100 * exp_multiplier;
+	return;
+}
+
+function	script	F_DropMultiplier	{
+	sc_end SC_ITEMBOOST;
+	sc_start SC_ITEMBOOST,86400000,100 * drop_multiplier;
+	return;
+}
+
+function	script	F_PercentBase10000	{
+	.@v = getarg(0,0);
+	if(.@v < 10)
+	return "0.0" + .@v + "%";
+	else if(.@v < 100)
+	return "0." + .@v + "%";
+	else{
+		.@percent = (.@v / 100);
+		.@decimal = (.@v % 100) / 10;
+		return .@percent + "." + .@decimal + "%";
+	}
+	
+	return;
+}
+
+function	script	F_IsDummyMonster	{
+	.@v = getarg(0,0);
+	.@isSkipSpawnCheck = getarg(1,0);
+	if((.@v == 2408)									// Dummy
+			|| (.@v == 2409)							// Dummy
+			|| (.@v == 2410)							// Dummy
+			|| (.@v == 2411)							// Dummy
+			|| (.@v == 2413)							// Dummy
+			|| ((.@v >= 21064) && (.@v <= 21086))		// Dummy
+			|| (.@v == 1288)							// Emperium
+			|| (.@v == 2401)							// Poring on initial land maps
+			|| (.@v == 2337)							// Hidden Mob
+			|| (.@v == 2343)							// Hidden Mob
+			|| (.@v == 2536)							// Hidden Mob
+			|| (.@v == 2537)							// Hidden Mob
+			|| (.@v == 2539)							// Hidden Mob
+			|| (.@v == 3038)							// Hidden Mob
+			//|| (getmonsterinfo(.@v,MOB_MAXHP) < 60)		// HP below Poring is not allowed
+			|| (!isspawn(.@v) && !.@isSkipSpawnCheck))							// It's not spawn in official servers
+	return true;
+	else
+	return false;
+}
+
+function	script	F_IsItemIdAvailable	{
+	.@input = getarg(0,0);
+	
+	.@is_found = 0;
+	
+	freeloop(1);
+	
+	// Check all item id had this item id
+	for(.@i = 0; .@i < getarraysize($weaponIds); .@i++){
+		if($weaponIds[.@i] == .@input){
+			.@is_found = 1;
+			break;
+		}
+	}
+	
+	if(!.@is_found){
+		for(.@i = 0; .@i < getarraysize($equipmentIds); .@i++){
+			if($equipmentIds[.@i] == .@input){
+				.@is_found = 1;
+				break;
+			}
+		}
+	}
+	
+	if(!.@is_found){
+		for(.@i = 0; .@i < getarraysize($costumeIds); .@i++){
+			if($costumeIds[.@i] == .@input){
+				.@is_found = 1;
+				break;
+			}
+		}
+	}
+	
+	if(!.@is_found){
+		for(.@i = 0; .@i < getarraysize($cardIds); .@i++){
+			if($cardIds[.@i] == .@input){
+				.@is_found = 1;
+				break;
+			}
+		}
+	}
+	
+	if(!.@is_found){
+		for(.@i = 0; .@i < getarraysize($enchantIds); .@i++){
+			if($enchantIds[.@i] == .@input){
+				.@is_found = 1;
+				break;
+			}
+		}
+	}
+	
+	freeloop(0);
+	
+	if(!.@is_found){
+		mes "Item ID: " + .@input + " ไม่สามารถกำหนดได้";
+		close;
+	}
+	
+	return .@input;
+}
+
+// Get grade name
+function	script	GetGradeName	{
+	.@grade = getarg(0,0);
+	return (.@grade == 4) ? "A" : (.@grade == 3) ? "B" : (.@grade == 2) ? "C" : (.@grade == 1) ? "D" : "-";
+}
+
+// Kill Box Quest Update
+function	script	KillBoxUpdate	{
+	if((killBoxTarget > 0)
+			&& (killBoxCount > 0)
+			&& (killedrid == killBoxTarget)){
+		killBoxCount--;
+		dispbottom "เหลืออีก " + killBoxCount + " ตัว";
+	}
+	return;
+}
+
+/// Parameter 1: All in
+/// Parameter 2: Points Requirements
+/// Parameter 3: Reward Zeny Amount
+/// Parameter 4: Variable Name
+function	script	MvPTradeZeny	{
+	.@isAllIn = (getarg(0,0) == 1);
+	.@pointsRequirement = getarg(1,INT_MAX);
+	.@rewardZenyAmount = getarg(2,0);
+	.@variableName$ = getarg(3,"");
+	
+	.@loopAmount = .@isAllIn ? 30000 : 1;
+	
+	freeloop(1);
+	
+	while(.@loopAmount > 0){
+		.@loopAmount--;
+		
+		if(getd(.@variableName$) >= .@pointsRequirement){
+			// Already had maximum amount of zeny
+			if(Zeny >= (INT_MAX - 1))
+			break;
+			
+			// Trade
+			set getd(.@variableName$),getd(.@variableName$) - .@pointsRequirement;
+			Zeny = cap_value(Zeny + .@rewardZenyAmount,0,(INT_MAX - 1));
+			.@successTrade = 1;
+		}
+		else
+		break;
+	}
+	
+	if(.@successTrade)
+	mes "แลกรางวัลเรียบร้อยแล้ว!";
+	else
+	mes "..";
+
+	freeloop(0);
+	
+	close;
+}
+
+/// Parameter 1: All in
+/// Parameter 2: Points Requirements
+/// Parameter 3: Reward Item Id
+/// Parameter 4: Reward Item Amount
+/// Parameter 5: Variable Name
+function	script	MvPTradeItem	{
+	.@isAllIn = (getarg(0,0) == 1);
+	.@pointsRequirement = getarg(1,INT_MAX);
+	.@rewardItemId = getarg(2,501);
+	.@rewardItemAmount = getarg(3,501);
+	.@variableName$ = getarg(4,"");
+	
+	.@loopAmount = .@isAllIn ? 30000 : 1;
+	
+	freeloop(1);
+	
+	while(.@loopAmount > 0){
+		.@loopAmount--;
+		
+		if(getd(.@variableName$) >= .@pointsRequirement){
+			// Already had maximum amount of reward item
+			if(countitem(.@rewardItemId) >= 30000)
+			break;
+			
+			// Check weight
+			if(!checkweight(6825,1)){
+				message strcharinfo(0),"น้ำหนักเต็ม (ต้องว่างอย่างน้อย 1000 น้ำหนัก)";
+				break;
+			}
+			
+			// Trade
+			set getd(.@variableName$),getd(.@variableName$) - .@pointsRequirement;
+			getitem .@rewardItemId,.@rewardItemAmount;
+			.@successTrade = 1;
+		}
+		else
+		break;
+	}
+
+	if(.@successTrade)
+	mes "แลกรางวัลเรียบร้อยแล้ว!";
+	else
+	mes "..";
+
+	freeloop(0);
+	
+	close;
+}
