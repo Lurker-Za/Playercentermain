@@ -14474,10 +14474,10 @@ Body:
       bonus2 bSkillAtk,"LG_CANNONSPEAR",4*(.@r_weapon/2);
   - Combos:
       - Combo:
-          - Morrigane's_Helm_IL
-          - Morrigane's_Manteau_IL
-          - Morrigane's_Belt_IL
-          - Morrigane's_Pendant_IL
+          - Morrigane_Helm_IL
+          - Morrigane_Manyeau_IL
+          - Morrigane_Belt_IL
+          - Morrigane_Pendant_IL
     Script: |
       bonus2 bAddSize,Size_Small,20;
       bonus bCritical,5;
@@ -14557,8 +14557,8 @@ Body:
       }
   - Combos:
       - Combo:
-          - Morrigane's_Belt_IL
-          - Morrigane's_Pendant_IL
+          - Morrigane_Belt_IL
+          - Morrigane_Pendant_IL
     Script: |
       bonus bAspdRate,10;
       bonus bAtkRate,10;

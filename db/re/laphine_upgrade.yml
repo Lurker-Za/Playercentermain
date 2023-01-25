@@ -4485,8 +4485,8 @@ Body:
       - Item: Saint_Robe_IL
       - Item: Water_Sprits_Armor_IL
       - Item: Chain_Mail_IL
-      - Item: Morrigane's_Helm_IL
-      - Item: Morrigane's_Manteau_IL
+      - Item: Morrigane_Helm_IL
+      - Item: Morrigane_Manyeau_IL
   - Item: S_Underwater_Box_IL
     ResultRefineMinimum: 9
     ResultRefineMaximum: 12
@@ -4503,8 +4503,8 @@ Body:
       - Item: Saint_Robe_IL
       - Item: Water_Sprits_Armor_IL
       - Item: Chain_Mail_IL
-      - Item: Morrigane's_Helm_IL
-      - Item: Morrigane's_Manteau_IL
+      - Item: Morrigane_Helm_IL
+      - Item: Morrigane_Manyeau_IL
   - Item: Circlet_Refine_Cube
     ResultRefine: 11
     MaximumRefine: 10
