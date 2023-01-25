@@ -2725,6 +2725,8 @@ Body:
       Baby_Soul_Reaper: true
       Star_Emperor2: true
       Baby_Star_Emperor2: true
+      Super_Novice_E: true
+      Super_Baby_E: true                        
     MaxJobLevel: 70
     JobExp:
       - Level: 1
@@ -2866,111 +2868,6 @@ Body:
       - Level: 69
         Exp: 924220092
       - Level: 70
-        Exp: 999999999
-  - Jobs:
-      Super_Novice_E: true
-      Super_Baby_E: true
-    MaxJobLevel: 50
-    JobExp:
-      - Level: 1
-        Exp: 112000
-      - Level: 2
-        Exp: 355000
-      - Level: 3
-        Exp: 615000
-      - Level: 4
-        Exp: 917000
-      - Level: 5
-        Exp: 1253000
-      - Level: 6
-        Exp: 1595000
-      - Level: 7
-        Exp: 2007000
-      - Level: 8
-        Exp: 2430000
-      - Level: 9
-        Exp: 2868000
-      - Level: 10
-        Exp: 3420000
-      - Level: 11
-        Exp: 3863000
-      - Level: 12
-        Exp: 4504000
-      - Level: 13
-        Exp: 4998000
-      - Level: 14
-        Exp: 5769000
-      - Level: 15
-        Exp: 6321000
-      - Level: 16
-        Exp: 7254000
-      - Level: 17
-        Exp: 7870000
-      - Level: 18
-        Exp: 9015000
-      - Level: 19
-        Exp: 9530000
-      - Level: 20
-        Exp: 11072000
-      - Level: 21
-        Exp: 11848000
-      - Level: 22
-        Exp: 13467000
-      - Level: 23
-        Exp: 14337000
-      - Level: 24
-        Exp: 16243000
-      - Level: 25
-        Exp: 17216000
-      - Level: 26
-        Exp: 19446000
-      - Level: 27
-        Exp: 20781000
-      - Level: 28
-        Exp: 23070000
-      - Level: 29
-        Exp: 24453000
-      - Level: 30
-        Exp: 27568000
-      - Level: 31
-        Exp: 29118000
-      - Level: 32
-        Exp: 31820000
-      - Level: 33
-        Exp: 34125000
-      - Level: 34
-        Exp: 37048000
-      - Level: 35
-        Exp: 40204000
-      - Level: 36
-        Exp: 42972000
-      - Level: 37
-        Exp: 45937000
-      - Level: 38
-        Exp: 49110000
-      - Level: 39
-        Exp: 52696000
-      - Level: 40
-        Exp: 57158000
-      - Level: 41
-        Exp: 61305000
-      - Level: 42
-        Exp: 67167000
-      - Level: 43
-        Exp: 72285000
-      - Level: 44
-        Exp: 77647000
-      - Level: 45
-        Exp: 83624000
-      - Level: 46
-        Exp: 91113000
-      - Level: 47
-        Exp: 98548000
-      - Level: 48
-        Exp: 107630000
-      - Level: 49
-        Exp: 119077000
-      - Level: 50
         Exp: 999999999
   - Jobs:
       Super_Novice: true
@@ -3325,6 +3222,7 @@ Body:
       Night_Watch: true
       Hyper_Novice: true
       Spirit_Handler: true
+      Sky_Emperor2: true                  
     MaxBaseLevel: 250
     BaseExp:
       - Level: 1
@@ -3852,6 +3750,7 @@ Body:
       Night_Watch: true
       Hyper_Novice: true
       Spirit_Handler: true
+      Sky_Emperor2: true                  
     MaxJobLevel: 50
     JobExp:
       - Level: 1
