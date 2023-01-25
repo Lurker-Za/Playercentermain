@@ -1832,6 +1832,11 @@ enum e_random_item_group {
 	IG_CLASS_SHADOW_SD_CUBE,
 	IG_CLASS_SHADOW_PD_CUBE,
 	IG_CLASS_SHADOW_EA_CUBE,
+	IG_AEGIS_101920,
+	IG_AEGIS_101921,
+	IG_AEGIS_101923,
+	IG_AEGIS_101924,
+	IG_AEGIS_101925,
 
 	IG_MAX,
 };
@@ -2017,6 +2022,7 @@ struct s_item_group_random
 struct s_item_group_db
 {
 	uint16 id; /// Item Group ID
+	t_itemid announce_box_id; /// Item ID to be used in ZC_BROADCASTING_SPECIAL_ITEM_OBTAIN packet
 	std::unordered_map<uint16, std::shared_ptr<s_item_group_random>> random;	/// group ID, s_item_group_random
 };
 
@@ -2160,7 +2166,7 @@ extern ItemDatabase item_db;
 
 class ItemGroupDatabase : public TypesafeCachedYamlDatabase<uint16, s_item_group_db> {
 public:
-	ItemGroupDatabase() : TypesafeCachedYamlDatabase("ITEM_GROUP_DB", 2, 1) {
+	ItemGroupDatabase() : TypesafeCachedYamlDatabase("ITEM_GROUP_DB", 3, 1) {
 
 	}
 

@@ -6828,6 +6828,11 @@
 	export_constant(IG_CLASS_SHADOW_SD_CUBE);
 	export_constant(IG_CLASS_SHADOW_PD_CUBE);
 	export_constant(IG_CLASS_SHADOW_EA_CUBE);
+	export_constant(IG_AEGIS_101920);
+	export_constant(IG_AEGIS_101921);
+	export_constant(IG_AEGIS_101923);
+	export_constant(IG_AEGIS_101924);
+	export_constant(IG_AEGIS_101925);
 
 	/* unit stop walking */
 	export_constant(USW_NONE);
