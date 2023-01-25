@@ -2885,14 +2885,14 @@ Body:
       bonus bAtkRate,10;
   - Combos:
       - Combo:
-          - Contaminated_Raydric_Card
+          - Polluted_Raydric_Card
           - Daydric_Card
     Script: |
       bonus bAtkRate,5;
       bonus2 bSubEle,Ele_Neutral,10;
   - Combos:
       - Combo:
-          - Contaminated_Raydric_Archer_Card
+          - Polluted_Ray_A_Card
           - P_Archer_Skeleton_Card
       - Combo:
           - Genetic_Robe
@@ -2904,7 +2904,7 @@ Body:
       bonus bLongAtkRate,5;
   - Combos:
       - Combo:
-          - Contaminated_Sting_Card
+          - Polluted_Sting_Card
           - Sting_Card
     Script: |
       bonus bDef,150;
