@@ -6,10 +6,6 @@
 //= 1.0 Initial Release [Capuche]
 //============================================================
 
-tra_fild	mapflag	noexp
-tra_fild	mapflag	noloot
-tra_fild	mapflag	nopenalty
-
 tra_fild,57,159	monster	Dummy (Small)	21064,1
 tra_fild,57,145	monster	Dummy (Small)	21064,1
 tra_fild,57,131	monster	Dummy (Small)	21064,1
