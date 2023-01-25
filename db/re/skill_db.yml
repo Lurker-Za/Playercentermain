@@ -17906,6 +17906,16 @@ Body:
         NoReiteration: true
         NoOverlap: true
     Status: PropertyWalk
+  - Id: 755
+    Name: NPC_MOVE_COORDINATE
+    Description: Change Location
+    MaxLevel: 1
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      IsNpc: true
+    Hit: Single
   - Id: 756
     Name: NPC_WIDEBLEEDING2
     Description: Wide Bleeding

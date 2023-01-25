@@ -58892,6 +58892,7 @@ Body:
     AegisName: Odin_itembox
     Name: Odin Relic
     Type: Usable
+    Buy: 20
     Weight: 100
     Flags:
       Container: true
