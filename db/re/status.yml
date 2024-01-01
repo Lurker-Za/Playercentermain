@@ -5735,6 +5735,8 @@ Body:
       All: true
     Flags:
       DisplayPc: true
+      NoDispell: true
+      NoClearance: true
   - Status: Kings_Grace
     Icon: EFST_KINGS_GRACE
     DurationLookup: LG_KINGS_GRACE
@@ -7669,8 +7671,6 @@ Body:
   - Status: Handicapstate_Conflagration
     Icon: EFST_HANDICAPSTATE_CONFLAGRATION
     DurationLookup: EM_CONFLAGRATION
-    CalcFlags:
-      Def_Ele: true
     Flags:
       BossResist: true
       BlEffect: true

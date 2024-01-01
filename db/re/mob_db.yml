@@ -94383,6 +94383,8 @@ Body:
     ChaseRange: 12
     Size: Small
     Race: Insect
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Earth
     ElementLevel: 1
     WalkSpeed: 200
@@ -94430,6 +94432,8 @@ Body:
     ChaseRange: 12
     Size: Large
     Race: Formless
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Neutral
     ElementLevel: 4
     WalkSpeed: 150
@@ -94477,6 +94481,8 @@ Body:
     ChaseRange: 12
     Size: Large
     Race: Formless
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Neutral
     ElementLevel: 4
     WalkSpeed: 200
@@ -94522,6 +94528,8 @@ Body:
     ChaseRange: 12
     Size: Large
     Race: Demon
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Neutral
     ElementLevel: 3
     WalkSpeed: 150
@@ -94572,6 +94580,8 @@ Body:
     ChaseRange: 12
     Size: Medium
     Race: Plant
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Fire
     ElementLevel: 3
     WalkSpeed: 175
@@ -94619,6 +94629,8 @@ Body:
     ChaseRange: 12
     Size: Medium
     Race: Demihuman
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Earth
     ElementLevel: 2
     WalkSpeed: 200
@@ -94666,6 +94678,8 @@ Body:
     ChaseRange: 12
     Size: Medium
     Race: Demihuman
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Fire
     ElementLevel: 2
     WalkSpeed: 200
@@ -94713,6 +94727,8 @@ Body:
     ChaseRange: 12
     Size: Large
     Race: Demihuman
+    RaceGroups:
+      Illusion_Luanda: true
     Element: Fire
     ElementLevel: 4
     WalkSpeed: 150
