@@ -23,6 +23,7 @@
 #
 ###########################################################################
 # - Group                      Group name of the item.
+#   AnnounceBoxItemId          Item to be shown in special item obtaining broadcast packet in the box name field. Uses the last item the player used if not defined. (Default: 0)
 #   SubGroups:
 #     - SubGroup:              SubGroup number associated with the list of item. See doc/item_group.txt for more information.
 #       List:                  List of item(s) for the SubGroup.
@@ -42653,6 +42654,7 @@ Body:
           - Index: 53
             Item: Enchanting_Weapone_S
             Rate: 185
+  # todo! Custom Rates (50% Stone vs 50% Epic Module)
   - Group: EPIC_MODULE_MIX
     SubGroups:
       - SubGroup: 1
@@ -59393,7 +59395,9 @@ Body:
           - Index: 47
             Item: GuillcrossStone_Robe
             Rate: 119
+  # Source: https://ro.gnjoy.com/news/probability/View.asp?category=5&seq=4156896&curpage=1
   - Group: MAIN_LUCKY_BOX
+    AnnounceBoxItemId: 23914
     SubGroups:
       - SubGroup: 0
         List:
@@ -59401,267 +59405,115 @@ Body:
             Item: Cachua_Coupon
       - SubGroup: 1
         List:
-          - Index: 0
-            Item: Guarantee_Weapon_8Up
-            Rate: 1
-          - Index: 1
-            Item: Guarantee_Weapon_7Up
-            Rate: 1
-          - Index: 2
-            Item: Guarantee_Armor_8Up
-            Rate: 1
-          - Index: 3
-            Item: Guarantee_Armor_7Up
-            Rate: 1
-          - Index: 4
-            Item: Blacksmith_Blessing
-            Rate: 450
-          - Index: 5
-            Item: M_Dimension_Essence
-            Rate: 9
-          - Index: 6
-            Item: C_CatPaw_7Day_Box_
-            Rate: 569
-          - Index: 7
-            Item: Poison_Bottle_Box2
-            Rate: 664
-          - Index: 8
-            Item: Honglyun's_Sword
-            Rate: 1
-          - Index: 9
-            Item: C_Wing_Of_Fly_5Day_Box
-            Rate: 47
-          - Index: 10
-            Item: Main_Lucky_Box
-            Rate: 47
-          - Index: 11
-            Item: Narcis_Bow
-            Rate: 1
-          - Index: 12
-            Item: FaceWorm_Breath
-            Rate: 1
-          - Index: 13
-            Item: Ancient_Hero_Boots
-            Rate: 47
-          - Index: 14
-            Item: Sealed_Card
-            Rate: 9
-          - Index: 15
-            Item: Comp_Battle_Bubble
-            Rate: 47
-          - Index: 16
-            Item: Comp_Trans_Scroll
-            Rate: 47
-          - Index: 17
-            Item: Class_Shadow_Cube
-            Rate: 266
-          - Index: 18
-            Item: WOB_Box
-            Rate: 569
-          - Index: 19
-            Item: Alchemist_Box
-            Rate: 47
-          - Index: 20
-            Item: Main_Lucky_Box
-            Rate: 664
-          - Index: 21
-            Item: Main_Lucky_Box
-            Rate: 569
-          - Index: 22
-            Item: Main_Lucky_Box
-            Rate: 569
-          - Index: 23
-            Item: Shadow_Refine_Hammer
-            Rate: 379
-          - Index: 24
-            Item: BloodyKnight_Shield_Box
-            Rate: 1
-          - Index: 25
-            Item: Main_Lucky_Box
-            Rate: 9
-          - Index: 26
-            Item: Shadow_Random_Mix
-            Rate: 427
-          - Index: 27
-            Item: Overwhelm_Armor_Box
-            Rate: 2
-          - Index: 28
-            Item: Main_Lucky_Box
-            Rate: 95
-          - Index: 29
-            Item: Shadow_9_Refine_Hammer
-            Rate: 1
-          - Index: 30
-            Item: Mightysoul_Essence
-            Rate: 9
-          - Index: 31
-            Item: World_Tour_Ticket
-            Rate: 569
-          - Index: 32
-            Item: Mad_Bunny_K_
-            Rate: 9
-          - Index: 33
-            Item: Ancient_Hero_Bravery
-            Rate: 1
-          - Index: 34
-            Item: Ancient_Hero_Wisdom
-            Rate: 1
-          - Index: 35
-            Item: Main_Lucky_Box
-            Rate: 2
-          - Index: 36
-            Item: Main_Lucky_Box
-            Rate: 47
-          - Index: 37
-            Item: Skill_Sha_M_S_Weapon
-            Rate: 5
-          - Index: 38
-            Item: Main_Lucky_Box
-            Rate: 95
-          - Index: 39
-            Item: Class_Sha_R_M_Melee
-            Rate: 33
-          - Index: 40
-            Item: Class_Sha_R_M_Magic
-            Rate: 33
-          - Index: 41
-            Item: Skill_Sha_R_M_Melee
-            Rate: 33
-          - Index: 42
-            Item: Skill_Sha_R_M_Magic
-            Rate: 33
-          - Index: 43
-            Item: Skill_Sha_M_S_Shield
-            Rate: 5
-          - Index: 44
-            Item: Skill_Sha_M_S_Pendant
-            Rate: 5
-          - Index: 45
-            Item: Skill_Sha_M_S_Earing
-            Rate: 5
-          - Index: 46
-            Item: Skill_Sha_M_S_Shoes
-            Rate: 5
-          - Index: 47
-            Item: Skill_Sha_M_S_Armor
-            Rate: 5
-          - Index: 48
-            Item: Main_Lucky_Box
-            Rate: 569
-          - Index: 49
-            Item: Main_Lucky_Box
-            Rate: 569
-          - Index: 50
-            Item: Refine_Hero_Weapon
-            Rate: 1
-          - Index: 51
-            Item: Refine_Hero_Boots
-            Rate: 1
-          - Index: 52
-            Item: Remodel_Hero_Boots
-            Rate: 1
-          - Index: 53
-            Item: Main_Lucky_Box
+          - Item: Sillit_Pong_Box
             Rate: 10
-          - Index: 54
-            Item: Main_Lucky_Box
+          - Item: High_Refine_Guarantee
+            Rate: 50
+          - Item: Shadow_Exchange_Ticket
+            Rate: 60
+          - Item: Enchant_Ticket
+            Rate: 60
+          - Item: aegis_101654
             Rate: 10
-          - Index: 55
-            Item: Main_Lucky_Box
+          - Item: aegis_101919
             Rate: 10
-          - Index: 56
-            Item: Main_Lucky_Box
+          - Item: aegis_101922
             Rate: 10
-          - Index: 57
-            Item: Sword_Of_Bluefire_Cube
-            Rate: 1
-          - Index: 58
-            Item: Slate_Sword_Cube
-            Rate: 1
-          - Index: 59
-            Item: Narcis_Bow_Cube
-            Rate: 1
-          - Index: 60
-            Item: Trumpet_Shell_K_Cube
-            Rate: 1
-          - Index: 61
-            Item: Barb_Wire_K_Cube
-            Rate: 1
-          - Index: 62
-            Item: Main_Lucky_Box
-            Rate: 474
-          - Index: 63
-            Item: Main_Lucky_Box
-            Rate: 47
-          - Index: 64
-            Item: Main_Lucky_Box
-            Rate: 47
-          - Index: 65
-            Item: Main_Lucky_Box
-            Rate: 1138
-          - Index: 66
-            Item: Main_Lucky_Box
-            Rate: 266
-          - Index: 67
-            Item: Main_Lucky_Box
-            Rate: 9
-          - Index: 68
-            Item: Main_Lucky_Box
-            Rate: 5
-          - Index: 69
-            Item: Main_Lucky_Box
-            Rate: 79
-          - Index: 70
-            Item: Main_Lucky_Box
-            Rate: 28
-          - Index: 71
-            Item: Hero_Equipment_Cube
-            Rate: 47
-          - Index: 72
-            Item: Main_Lucky_Box
-            Rate: 66
-          - Index: 73
-            Item: Main_Lucky_Box
-            Rate: 66
-          - Index: 74
-            Item: Large_Sorcerer_Crown
-            Rate: 5
-          - Index: 75
-            Item: Viva_Adul_Hat_AB1
-            Rate: 9
-          - Index: 76
-            Item: Viva_Adul_Hat_AB2
-            Rate: 9
-          - Index: 77
-            Item: Viva_Adul_Hat_SC1
-            Rate: 9
-          - Index: 78
-            Item: Viva_Adul_Hat_SC2
-            Rate: 9
-          - Index: 79
-            Item: Hero_Insignia
-            Rate: 9
-          - Index: 80
-            Item: Hero_Token_SHC
-            Rate: 5
-          - Index: 81
-            Item: Hero_Token_ABC
-            Rate: 5
-          - Index: 82
-            Item: Slate_Sword
-            Rate: 1
-          - Index: 83
-            Item: Trumpet_Shell_K
-            Rate: 1
-          - Index: 84
-            Item: Barb_Wire_K
-            Rate: 1
-          - Index: 85
-            Item: Mad_Bunny_Ticket
-            Rate: 19
-          - Index: 86
-            Item: Hero_Enchant_Ticket
-            Rate: 19
+          - Item: Mightysoul_Essence
+            Rate: 90
+          - Item: M_Dimension_Essence
+            Rate: 90
+          - Item: Refine_Guarantee
+            Rate: 830
+          - Item: Sealed_Card
+            Rate: 90
+          - Item: Sealed_Card2
+            Rate: 90
+          - Item: aegis_101314
+            Rate: 500
+          - Item: Hero_LT_Refine_Magic
+            Rate: 250
+          - Item: Costama_Egg69
+            Rate: 250
+          - Item: Up_Hero_Weapon_Box
+            Rate: 100
+          - Item: Helm_Of_Faith_Hammer
+            Rate: 80
+          - Item: Clock_Tower_W_Hammer
+            Rate: 80
+          - Item: Mad_Bunny_K_
+            Rate: 100
+          - Item: Deepblue_Sunglasses_
+            Rate: 100
+          - Item: Pump_Of_Spirit
+            Rate: 100
+          - Item: aegis_101925
+            Rate: 100
+          - Item: aegis_600041
+            Rate: 100
+          - Item: aegis_500072
+            Rate: 100
+          - Item: aegis_550115
+            Rate: 100
+          - Item: aegis_630027
+            Rate: 100
+          - Item: aegis_530045
+            Rate: 100
+          - Item: aegis_550116
+            Rate: 100
+          - Item: Blacksmith_Bless_Box_3
+            Rate: 300
+          - Item: Shadow_Hammer_Box_3
+            Rate: 300
+          - Item: Shadow_R_M_Box
+            Rate: 4000
+          - Item: aegis_101563
+            Rate: 500
+          - Item: Blacksmith_Blessing
+            Rate: 3440
+          - Item: Material_Shadow_CubeII
+            Rate: 500
+          - Item: Hero_Equipment_Cube
+            Rate: 500
+          - Item: Shadow_Refine_Hammer
+            Rate: 4000
+          - Item: Skill_Shadow_Cube
+            Rate: 1000
+          - Item: All_Shadow_Cube
+            Rate: 2800
+          - Item: aegis_101565
+            Rate: 12000
+          - Item: Shadowdecon_Ore_Box
+            Rate: 5000
+          - Item: Zelunium_Ore_Box
+            Rate: 5000
+          - Item: aegis_101470
+            Rate: 5000
+          - Item: aegis_101471
+            Rate: 5000
+          - Item: C_Giant_Fly_1Day_Box__
+            Rate: 5000
+          - Item: Poison_Bottle_30_Box
+            Rate: 6000
+          - Item: C_Wing_Of_Fly_5Day_Box_
+            Rate: 6000
+          - Item: Mysterious_Medal_Box
+            Rate: 6000
+          - Item: C_CatPaw_7Day_Box
+            Rate: 6000
+          - Item: Lapine_DdukddakBox3
+            Rate: 5000
+          - Item: Gold
+            Rate: 500
+            Amount: 5
+#         - Item: Gold
+#           Rate: 1500
+#           Amount: 3   # TODO
+#         - Item: Gold
+#           Rate: 5000
+#           Amount: 2   # TODO
+          - Item: World_Tour_Ticket
+            Rate: 6000
   - Group: SEASON_EVT_REWARD
     SubGroups:
       - SubGroup: 1
@@ -67975,18 +67827,12 @@ Body:
     SubGroups:
       - SubGroup: 0
         List:
-          - Index: 0
-            Item: Trans_Scroll_Wghost
-          - Index: 1
-            Item: Trans_Scroll_Sca
-          - Index: 2
-            Item: Trans_Scroll_Wander
-          - Index: 3
-            Item: Trans_Scroll_Gazeti
-          - Index: 4
-            Item: Trans_Scroll_Karcher
-          - Index: 5
-            Item: Trans_Scroll_Necro
+          - Item: Trans_Scroll_Wind_Ghost
+          - Item: Trans_Scroll_Horn_Scaraba
+          - Item: Trans_Scroll_Wanderer
+          - Item: Trans_Scroll_Gazeti
+          - Item: Trans_Scroll_Kobold_Archer
+          - Item: Trans_Scroll_Necromancer
   - Group: S_W_BREATH_CUBE
     SubGroups:
       - SubGroup: 0
@@ -73983,3 +73829,45 @@ Body:
           - Index: 65
             Item: Critical_Stone_Bottom
             Rate: 400
+  - Group: AEGIS_101920
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Item: S_EXP_Weapon
+            Rate: 1
+            RefineMinimum: 7
+            RefineMaximum: 10
+  - Group: AEGIS_101921
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Item: S_EXP_Shield
+            Rate: 1
+            RefineMinimum: 7
+            RefineMaximum: 10
+  - Group: AEGIS_101923
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Item: S_Mega_Blitz_Weapon
+            Rate: 1
+            RefineMinimum: 7
+            RefineMaximum: 10
+  - Group: AEGIS_101924
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Item: S_Mega_Blitz_Shield
+            Rate: 1
+            RefineMinimum: 7
+            RefineMaximum: 10
+  - Group: AEGIS_101925
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Item: aegis_480197
+            Rate: 1
+          - Item: Cvt_Magical_Wing
+            Rate: 1
+          - Item: Cvt_Physical_Wing
+            Rate: 1

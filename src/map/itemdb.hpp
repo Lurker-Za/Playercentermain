@@ -2030,6 +2030,11 @@ enum e_random_item_group {
 	IG_DUN_VOUCHER_BOX2,
 	IG_BLUEBOXOFQUESTIONS,
 	IG_ENCHANT_STONE_BOX33,
+	IG_AEGIS_101920,
+	IG_AEGIS_101921,
+	IG_AEGIS_101923,
+	IG_AEGIS_101924,
+	IG_AEGIS_101925,
 
 	IG_MAX,
 };
@@ -2215,6 +2220,7 @@ struct s_item_group_random
 struct s_item_group_db
 {
 	uint16 id; /// Item Group ID
+	t_itemid announce_box_id; /// Item ID to be used in ZC_BROADCASTING_SPECIAL_ITEM_OBTAIN packet
 	std::unordered_map<uint16, std::shared_ptr<s_item_group_random>> random;	/// group ID, s_item_group_random
 };
 

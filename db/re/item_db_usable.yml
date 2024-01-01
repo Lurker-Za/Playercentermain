@@ -58752,7 +58752,7 @@ Body:
   - Id: 23919
     AegisName: K_Secret_Key
     Name: Kachua's Secret Key
-    Type: Usable
+    Type: Delayconsume
     Trade:
       NoDrop: true
       NoTrade: true
@@ -58762,7 +58762,7 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      /* callfunc "F_Kachua_Key"; */
+      duplicate_dynamic("Kachua's Secret Box#bm");
   - Id: 23921
     AegisName: Season_Evt_Reward
     Name: Event Reward Box
@@ -63073,7 +63073,7 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      getgroupitem(IG_S_Ignition_Cube);
+      getgroupitem(IG_S_IGNITION_CUBE);
   - Id: 100952
     AegisName: S_W_Breath_Cube
     Name: Cold Breath Shadow Cube
@@ -64658,10 +64658,7 @@ Body:
   - Id: 101047
     AegisName: Blacksmith_Bless_Box_3
     Name: Blacksmith Blessing Box 3
-    Type: Usable
-    Weight: 0
-    Flags:
-      Container: true
+    Type: Cash
     Trade:
       NoDrop: true
       NoTrade: true
@@ -64671,14 +64668,11 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      getgroupitem(IG_Blacksmith_Bless_Box_3);
+      getitem 6635,3;   /* Blacksmith_Blessing */
   - Id: 101048
     AegisName: Shadow_Hammer_Box_3
-    Name: Holgren's Shadow Smelting Hammer Box 3
-    Type: Usable
-    Weight: 0
-    Flags:
-      Container: true
+    Name: Hollgrehenn's Shadow Refine Hammer Box (3)
+    Type: Cash
     Trade:
       NoDrop: true
       NoTrade: true
@@ -64688,7 +64682,7 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      getgroupitem(IG_Shadow_Hammer_Box_3);
+      getitem 23436,3;   /* Shadow_Refine_Hammer */
   - Id: 101060
     AegisName: Select_Example1
     Name: TestA
@@ -66360,6 +66354,22 @@ Body:
       Container: true
     Script: |
       getgroupitem(IG_Intake_Hair_Box);
+  - Id: 101919
+    AegisName: aegis_101919
+    Name: Experience Shadow Selection Box    # !todo check english name
+    Type: Usable
+    Weight: 10
+    Flags:
+      BuyingStore: true
+  - Id: 101920
+    AegisName: aegis_101920
+    Name: Experience Weapon Shadow Box    # !todo check english name
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Script: |
+      getgroupitem(IG_AEGIS_101920);
   - Id: 102017
     AegisName: Mocadas_Refine_Box
     Name: Smelting Mocadas Equipment 9~10    # !todo check english name
@@ -66713,6 +66723,15 @@ Body:
       Container: true
     Script: |
       getgroupitem(IG_Enchant_Stone_Box30);
+  - Id: 101921
+    AegisName: aegis_101921
+    Name: Experience Shield Shadow Box    # !todo check english name
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Script: |
+      getgroupitem(IG_AEGIS_101921);
   - Id: 102224
     AegisName: Hero_Up_Cube_11
     Name: +11 Ancient Hero Armor Opening Cube    # !todo check english name
@@ -66819,6 +66838,22 @@ Body:
       Container: true
     Script: |
       getgroupitem(IG_Enchant_Stone_Box31);
+  - Id: 101922
+    AegisName: aegis_101922
+    Name: Mega Blitz Shadow Selection Box    # !todo check english name
+    Type: Usable
+    Weight: 10
+    Flags:
+      BuyingStore: true
+  - Id: 101923
+    AegisName: aegis_101923
+    Name: Mega Blitz Weapon Shadow Box    # !todo check english name
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Script: |
+      getgroupitem(IG_AEGIS_101923);
   - Id: 102333
     AegisName: aegis_102333
     Name: 3rd/Expanded Stone III (Garment) Box
@@ -66828,6 +66863,15 @@ Body:
       Container: true
     Script: |
       /* TODO getgroupitem(IG_THIRD_JOB_STONE_GARMENT_BOX3); */
+  - Id: 101924
+    AegisName: aegis_101924
+    Name: Mega Blitz Shield Shadow Box    # !todo check english name
+    Type: Usable
+    Weight: 10
+    Flags:
+      Container: true
+    Script: |
+      getgroupitem(IG_AEGIS_101924);
   - Id: 102342
     AegisName: Loki_Advice_3
     Name: Loki's advice (distance physics)    # !todo check english name
@@ -66948,6 +66992,15 @@ Body:
       Container: true
     Script: |
       getgroupitem(IG_Enchant_Stone_Box33);
+  - Id: 101925
+    AegisName: aegis_101925
+    Name: Convertible Wing Box    # !todo check english name
+    Type: Usable
+    Flags:
+      BuyingStore: true
+      Container: true
+    Script: |
+      getgroupitem(IG_AEGIS_101925);
   - Id: 200003
     AegisName: LI_HD_Oridecon_Box2
     Name: (Limited) HD Oridecon Box(Blacksmith)(30)

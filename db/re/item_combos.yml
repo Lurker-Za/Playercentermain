@@ -22522,11 +22522,14 @@ Body:
   - Combos:
       - Combo:
           - Cvt_Physical_Wing
-          - Victory_Wing_Ear_
+          - Victory_Wing_Ear
     Script: |
       bonus bDelayrate,-15;
       bonus bAtkRate,7;
   - Combos:
+      - Combo:
+          - Cvt_Physical_Wing
+          - Battle_Processor
       - Combo:
           - Cvt_Physical_Wing
           - Battle_Processor_
@@ -22536,19 +22539,22 @@ Body:
       bonus bAtkRate,7;
   - Combos:
       - Combo:
-          - Deepblue_Sunglasses_
           - Cvt_Physical_Wing
+          - Deepblue_Sunglasses
     Script: |
       bonus bVariableCastrate,-15;
       bonus bAtkRate,7;
   - Combos:
       - Combo:
           - Cvt_Magical_Wing
-          - Victory_Wing_Ear_
+          - Victory_Wing_Ear
     Script: |
       bonus bDelayrate,-15;
       bonus bMatkRate,7;
   - Combos:
+      - Combo:
+          - Cvt_Magical_Wing
+          - Battle_Processor
       - Combo:
           - Cvt_Magical_Wing
           - Battle_Processor_
@@ -22557,8 +22563,8 @@ Body:
       bonus bMatkRate,7;
   - Combos:
       - Combo:
-          - Deepblue_Sunglasses_
           - Cvt_Magical_Wing
+          - Deepblue_Sunglasses
     Script: |
       bonus bVariableCastrate,-15;
       bonus bMatkRate,7;
