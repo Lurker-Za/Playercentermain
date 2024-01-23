@@ -1895,12 +1895,6 @@
 	export_constant(SC_RUSH_QUAKE1);
 	export_constant(SC_RUSH_QUAKE2);
 	export_constant(SC_G_LIFEPOTION);
-	export_constant(SC_HNNOWEAPON);
-	export_constant(SC_SHIELDCHAINRUSH);
-	export_constant(SC_MISTYFROST);
-	export_constant(SC_GROUNDGRAVITY);
-	export_constant(SC_BREAKINGLIMIT);
-	export_constant(SC_RULEBREAK);
 
 
 	// Hyper Novice
@@ -10144,6 +10138,7 @@
 	export_constant(UNT_LIGHTNING_LAND);
 	export_constant(UNT_VENOM_SWAMP);
 	export_constant(UNT_CONFLAGRATION);
+
 	export_constant(UNT_DEEPBLINDTRAP);
 	export_constant(UNT_SOLIDTRAP);
 	export_constant(UNT_SWIFTTRAP);
