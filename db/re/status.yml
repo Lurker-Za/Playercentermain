@@ -8998,6 +8998,9 @@ Body:
     DurationLookup: BO_HELL_DUSTY
     CalcFlags:
       All: true
+  - Status: Hnnoweapon
+    Icon: EFST_NOEQUIPWEAPON
+    DurationLookup: HN_DOUBLEBOWLINGBASH
   - Status: Shieldchainrush
     Icon: EFST_SHIELDCHAINRUSH
     DurationLookup: HN_SHIELD_CHAIN_RUSH
