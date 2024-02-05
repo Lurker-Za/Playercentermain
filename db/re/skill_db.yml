@@ -18434,6 +18434,7 @@ Body:
     SplashArea: 5
     Duration1: 30000
     Status: Killing_Aura
+    Hit: Single
   - Id: 1001
     Name: KN_CHARGEATK
     Description: Charge Attack

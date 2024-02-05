@@ -6982,6 +6982,7 @@
 	export_constant(IG_DUN_VOUCHER_BOX2);
 	export_constant(IG_BLUEBOXOFQUESTIONS);
 	export_constant(IG_ENCHANT_STONE_BOX33);
+	export_constant(IG_ODIN_RELIC);
 
 	/* unit stop walking */
 	export_constant(USW_NONE);
