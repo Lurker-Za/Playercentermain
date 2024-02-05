@@ -7712,12 +7712,12 @@ static defType status_calc_def(struct block_list *bl, status_change *sc, int def
 		def += sc->getSCE(SC_D_MACHINE)->val2;
 	if (sc->getSCE(SC_CLIMAX_CRYIMP))
 		def += 300;
-	if (sc->getSCE(SC_GUARD_STANCE))
-		def += sc->getSCE(SC_GUARD_STANCE)->val2;
-	if (sc->getSCE(SC_ATTACK_STANCE))
-		def -= sc->getSCE(SC_ATTACK_STANCE)->val2;
-	if (sc->getSCE(SC_M_DEFSCROLL))
-		def += sc->getSCE(SC_M_DEFSCROLL)->val1;
+	if (sc->data[SC_GUARD_STANCE])
+		def += sc->data[SC_GUARD_STANCE]->val2;
+	if (sc->data[SC_ATTACK_STANCE])
+		def -= sc->data[SC_ATTACK_STANCE]->val2;
+	if (sc->data[SC_M_DEFSCROLL])
+		def += sc->data[SC_M_DEFSCROLL]->val1;
 
 	return (defType)cap_value(def,DEFTYPE_MIN,DEFTYPE_MAX);
 }
@@ -7850,8 +7850,8 @@ static defType status_calc_mdef(struct block_list *bl, status_change *sc, int md
 		mdef += sc->getSCE(SC_PACKING_ENVELOPE8)->val1;
 	if (sc->getSCE(SC_CLIMAX_CRYIMP))
 		mdef += 100;
-	if (sc->getSCE(SC_M_DEFSCROLL))
-		mdef += sc->getSCE(SC_M_DEFSCROLL)->val2;
+	if (sc->data[SC_M_DEFSCROLL])
+		mdef += sc->data[SC_M_DEFSCROLL]->val2;
 
 	return (defType)cap_value(mdef,DEFTYPE_MIN,DEFTYPE_MAX);
 }

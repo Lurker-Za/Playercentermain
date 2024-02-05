@@ -2314,8 +2314,8 @@ Body:
       getgroupitem(IG_E_LIMITPOWERBOOSTER);
   - Id: 9610
     AegisName: E_Mysterious_Water
-    Name: "[Event] Mysterious Water"
-    Type: Healing
+    Name: "[Not for Sale] Mysterious Water of Life"
+    Type: Usable
     Weight: 10
     Trade:
       NoDrop: true
@@ -13727,9 +13727,8 @@ Body:
       getitem 505,100;
   - Id: 12832
     AegisName: Mysterious_Water
-    Name: Mysterious Water
+    Name: Mysterious Water of Life
     Type: Usable
-    Buy: 20
     Weight: 10
     Trade:
       NoDrop: true
@@ -53150,7 +53149,7 @@ Body:
       getgroupitem(IG_IMPROVED_WOODENBOX);
   - Id: 23012
     AegisName: Comp_Small_Mana_Potion
-    Name: "[Not For Sale] Small Mana Potion"
+    Name: "[Not for Sale] Small Mana Potion"
     Type: Usable
     Weight: 10
     Trade:
@@ -54569,14 +54568,12 @@ Body:
       NoAuction: true
     Script: |
       specialeffect2 EF_HEAL3;
-      sc_start2 SC_S_MANAPOTION,600000,-5,5;
+      sc_start2 SC_S_MANAPOTION,3600000,-5,5;
   - Id: 23204
-    AegisName: M_DEFScroll
+    AegisName: Shining_Def_Scroll
     Name: Shining Defense Scroll
     Type: Usable
     Weight: 10
-    NoUse:
-      Sitting: true
     Trade:
       NoDrop: true
       NoTrade: true
@@ -54615,9 +54612,9 @@ Body:
     Script: |
       getgroupitem(IG_NEW_HAT_BOX2);
   - Id: 23207
-    AegisName: Premium_Box
-    Name: "[30Day] Premium Subscription Box"
-    Type: Usable
+    AegisName: Premium_Flatrate_Box
+    Name: Premium Flatrate Service Box
+    Type: Cash
     Weight: 10
     Trade:
       NoDrop: true
@@ -54628,6 +54625,8 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
+     /* 30 day premium: EXP +20%, Drop +20%, Storage +300
+      getitem Premium Staff Wand,1; */
       /* TODO */
   - Id: 23213
     AegisName: Premium_Box_5d7
@@ -61606,6 +61605,20 @@ Body:
       Container: true
     Script: |
       getgroupitem(IG_MD_AIRBOAT_REWARD);
+  - Id: 100460
+    AegisName: MD_Airboat_Bexp
+    Name: Purified Growth Elixir
+    Type: Usable
+    EquipLevelMin: 200
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      /* get exp, lower amount after lv. 231 */
   - Id: 100465
     AegisName: Stone_Robe_Box
     Name: 3rd/Expanded Stone (Garment) Box
@@ -61656,6 +61669,14 @@ Body:
       Container: true
     Script: |
       getgroupitem(IG_FAMOUS_HAT_BOX);
+  - Id: 100475
+    AegisName: MD_Airboat_Expbox
+    Name: Purple Special Storage
+    Type: Usable
+    Flags:
+      Container: true
+    Script: |
+      /* getgroupitem(IG_MD_AIRBOAT_EXPBOX); */
   - Id: 100476
     AegisName: MD_Airboat_Random
     Name: Ymir Beads
@@ -62950,8 +62971,8 @@ Body:
       getgroupitem(IG_S_COSTUME_BOX);
   - Id: 100913
     AegisName: EXP_Drop_Up_7days
-    Name: Kafra Buff(7 Days)
-    Type: Usable
+    Name: Kafra Buff (7 days)
+    Type: Cash
     Trade:
       NoDrop: true
       NoTrade: true
@@ -62961,7 +62982,7 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      /* TODO */
+      /* 7 days: EXP +50%, Drop +50% */
   - Id: 100917
     AegisName: Hero_Weapon_Hammer_4
     Name: Modified Hero's Weapon Refinement Hammer IV
@@ -65316,6 +65337,17 @@ Body:
     Type: Healing
     Script: |
       percentheal 30,30;
+  - Id: 101331
+    AegisName: Fruits_Set_Trap
+    Name: Assorted Fruit Trap
+    Type: Usable
+    Weight: 10
+    Flags:
+      BuyingStore: true
+    NoUse:
+      Sitting: true
+    Script: |
+      pet 21632;
   - Id: 101336
     AegisName: aegis_101336
     Name: "[Scroll] DEX Biscuit Stick"
@@ -65336,7 +65368,7 @@ Body:
       bonus_script "{ bonus bHPRecovRate,rand(11,33); }",1800,1;
   - Id: 101340
     AegisName: Bs_Item_M_S_52
-    Name: Blacksmith's Blessing Recipe
+    Name: Blacksmith Blessing Recipe
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65345,7 +65377,7 @@ Body:
       laphine_synthesis();
   - Id: 101341
     AegisName: Bs_Item_M_S_53
-    Name: Hollgrehenn's Shadow Refine Hammer Recipe
+    Name: Shadow Refine Hammer Recipe
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65363,7 +65395,7 @@ Body:
       laphine_synthesis();
   - Id: 101343
     AegisName: Bs_Item_M_S_55
-    Name: Powerful Dimension Essence Recipe
+    Name: Powerful Dimensional Essence Recipe
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65372,7 +65404,7 @@ Body:
       laphine_synthesis();
   - Id: 101344
     AegisName: Bs_Item_M_S_56
-    Name: Enchantment Ticket Recipe
+    Name: Powerful Soul Essence Recipe
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65429,12 +65461,30 @@ Body:
     Type: DelayConsume
     Script: |
       item_reform();
+  - Id: 101356
+    AegisName: aegis_101356
+    Name: Rabbit Necromancy
+    Type: Usable
+    Script: |
+      bonus_script "{ bonus2 bResEff,Eff_Freeze,10000; }",1200,1,1;
   - Id: 101357
-    AegisName: BlessOfRabbit
+    AegisName: aegis_101357
     Name: Rabbit's Blessed Egg
     Type: Delayconsume
     Script: |
       itemskill "AL_BLESSING",10;
+  - Id: 101358
+    AegisName: aegis_101358
+    Name: Spring Rabbit's Empowered Egg
+    Type: Delayconsume
+    Script: |
+      itemskill "BS_OVERTHRUST",5,true;
+  - Id: 101365
+    AegisName: aegis_101365
+    Name: Happy Egg Festival Box
+    Type: Usable
+    Flags:
+      Container: true
   - Id: 101359
     AegisName: MajorAutoSpell_Up
     Name: Major Auto Spell Shadow Spellbook
@@ -65473,7 +65523,7 @@ Body:
       laphine_upgrade();
   - Id: 101363
     AegisName: OS_Helm_Hammer
-    Name: Upgraded OS Helmet Refine Hammer
+    Name: OS Upgrade Helmet Refining Hammer
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65482,7 +65532,7 @@ Body:
       item_reform();
   - Id: 101364
     AegisName: OS_Weapon_Hammer
-    Name: Upgraded OS Weapon Refine Hammer
+    Name: OS Upgrade Weapon Refining Hammer
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65491,7 +65541,7 @@ Body:
       item_reform();
   - Id: 101389
     AegisName: Helm_Of_Faith_Hammer
-    Name: Helm of Faith Refine Hammer
+    Name: Helm of Faith Refining Hammer
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65500,7 +65550,7 @@ Body:
       item_reform();
   - Id: 101390
     AegisName: Clock_Tower_W_Hammer
-    Name: Clock Tower Basement Refine Hammer
+    Name: Clock Tower Basement Equipment Refining Hammer
     Type: DelayConsume
     Weight: 10
     Flags:
@@ -65524,6 +65574,25 @@ Body:
       percentheal 10,0;
       skilleffect "AL_INCAGI",0;
       sc_start SC_INCREASEAGI,60000,3;
+  - Id: 101395
+    AegisName: Season_Evt_Reward_04M
+    Name: Event Reward Box
+    Type: Usable
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoAuction: true
+  - Id: 101399
+    AegisName: aegis_101399
+    Name: Enchantment Ticket Envelope
+    Type: Usable
+    Weight: 10
+    Script: |
+      getitem 1000874,3;
   - Id: 101416
     AegisName: aegis_101416
     Name: Costume Enchant Stone Box 27
@@ -67686,6 +67755,86 @@ Body:
       NoAuction: true
     Script: |
       getgroupitem(IG_COSTUME_MILE_PACK_26_3);
+  - Id: 200195
+    AegisName: Monthly_Package_1
+    Name: Monthly Supplies Package I
+    Type: Cash
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getgroupitem(IG_MONTHLY_PACKAGE_1);
+  - Id: 200196
+    AegisName: Monthly_Package_2
+    Name: Monthly Supplies Package II
+    Type: Cash
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getgroupitem(IG_MONTHLY_PACKAGE_2);
+  - Id: 200197
+    AegisName: Monthly_Package_3
+    Name: Monthly Supplies Package III
+    Type: Cash
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getgroupitem(IG_MONTHLY_PACKAGE_3);
+  - Id: 200198
+    AegisName: Monthly_Buff_Package
+    Name: Monthly Premium Buff Package
+    Type: Cash
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getgroupitem(IG_MONTHLY_BUFF_PACKAGE);
+  - Id: 200199
+    AegisName: Monthly_Battle_Package
+    Name: Monthly Combat Manual Package	
+    Type: Cash
+    Flags:
+      Container: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      getgroupitem(IG_MONTHLY_BATTLE_PACKAGE);
   - Id: 1100003
     AegisName: Concentrated_R_P
     Name: Concentrated Red Potion
