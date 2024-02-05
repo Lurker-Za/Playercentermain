@@ -93743,8 +93743,45 @@ Body:
 #    AegisName: MD_TRE_WHISPER
 #  - Id: 20117
 #    AegisName: MD_TRE_HYDRA
-#  - Id: 20118
-#    AegisName: GOBLIN_KING
+  - Id: 20118
+    AegisName: GOBLIN_KING
+    Name: Goblin King
+    Level: 255
+    Hp: 279059768
+    BaseExp: 9966420
+    JobExp: 6644280
+    Attack: 10804
+    Attack2: 1792
+    Defense: 670
+    MagicDefense: 104
+    MagicResistance: 500
+    Resistance: 500
+    Str: 170
+    Agi: 201
+    Vit: 84
+    Int: 160
+    Dex: 170
+    Luk: 70
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demihuman
+    Element: Wind
+    ElementLevel: 3
+    WalkSpeed: 110
+    AttackDelay: 1120
+    AttackMotion: 620
+    DamageMotion: 240
+    DamageTaken: 10
+    Ai: 21
+    Class: Boss
+    Modes:
+      Mvp: true
+    Drops:
+      - Item: Goblin_Mask_04
+        Rate: 500
+        # RandomOptionGroup: 60BW
 #  - Id: 20119
 #    AegisName: BAD_CATCUMBER
 #  - Id: 20120
@@ -93857,16 +93894,233 @@ Body:
 #    AegisName: RAYDRIC_ARCHER_MJ
 #  - Id: 20174
 #    AegisName: RAGGED_ZOMBIE_MJ
-#  - Id: 20175
-#    AegisName: EXTRA_JOKER
-#  - Id: 20176
-#    AegisName: ERZSEBET
-#  - Id: 20177
-#    AegisName: JENIFFER
-#  - Id: 20178
-#    AegisName: GENERAL_ORC
-#  - Id: 20179
-#    AegisName: SIEGLOUSE
+  - Id: 20175
+    AegisName: EXTRA_JOKER
+    Name: Extra Joker
+    Level: 255
+    Hp: 9156079
+    BaseExp: 327003
+    JobExp: 218002
+    Attack: 10804
+    Attack2: 5876
+    Defense: 281
+    MagicDefense: 110
+    MagicResistance: 350
+    Resistance: 150
+    Str: 198
+    Agi: 297
+    Vit: 35
+    Int: 180
+    Dex: 280
+    Luk: 90
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Demon
+    Element: Wind
+    ElementLevel: 4
+    WalkSpeed: 100
+    AttackDelay: 1364
+    AttackMotion: 864
+    DamageMotion: 432
+    Ai: 04  # TODO
+    Modes:
+      Detector: true
+    Drops:
+      - Item: Zargon
+        Rate: 5000
+      - Item: Old_Card_Album
+        Rate: 5
+      - Item: Contracts_In_Shadow
+        Rate: 50
+      - Item: Yellow_Herb
+        Rate: 2500
+      - Item: Katar_Of_Piercing_Wind
+        Rate: 1
+      - Item: Oridecon
+        Rate: 250
+      - Item: Jokers_Wild
+        Rate: 2500
+  - Id: 20176
+    AegisName: ERZSEBET
+    Name: Erzsebet
+    Level: 254
+    Hp: 9046643
+    BaseExp: 323094
+    JobExp: 215396
+    Attack: 10231
+    Attack2: 6746
+    Defense: 213
+    MagicDefense: 115
+    MagicResistance: 235
+    Resistance: 177
+    Str: 180
+    Agi: 270
+    Vit: 33
+    Int: 190
+    Dex: 264
+    Luk: 77
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demon
+    Element: Dark
+    ElementLevel: 1
+    WalkSpeed: 100
+    AttackDelay: 1504
+    AttackMotion: 840
+    DamageMotion: 900
+    Ai: 04  # TODO
+    Modes:
+      Detector: true
+    Drops:
+      - Item: Star_Crumb
+        Rate: 75
+      - Item: Starsand_Of_Witch
+        Rate: 3500
+      - Item: Witchs_White_Shirt
+        Rate: 10
+        # RandomOptionGroup: ZA1  # TODO
+      - Item: Arc_Wand_
+        Rate: 15
+      - Item: Old_Magic_Book
+        Rate: 40
+      - Item: Old_Broom
+        Rate: 50
+      - Item: Cute_Broom
+        Rate: 2200
+  - Id: 20177
+    AegisName: JENIFFER
+    Name: Jennifer
+    Level: 255
+    Hp: 8937208
+    BaseExp: 319186
+    JobExp: 212791
+    Attack: 9976
+    Attack2: 5769
+    Defense: 329
+    MagicDefense: 109
+    MagicResistance: 200
+    Resistance: 200
+    Str: 178
+    Agi: 267
+    Vit: 64
+    Int: 201
+    Dex: 301
+    Luk: 77
+    AttackRange: 7
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Fish
+    Element: Dark
+    ElementLevel: 1
+    WalkSpeed: 300
+    AttackDelay: 832
+    AttackMotion: 500
+    DamageMotion: 600
+    Ai: 04  # TODO
+    Drops:
+      - Item: Coral_Reef
+        Rate: 10000
+      - Item: Tentacle
+        Rate: 10000
+      - Item: Sticky_Mucus
+        Rate: 10000
+      - Item: Panacea
+        Rate: 500
+      - Item: Red_Gemstone
+        Rate: 1000
+      - Item: Katar_Of_Raging_Blaze
+        Rate: 5
+      - Item: Showy_Coral_Reef
+        Rate: 1800
+  - Id: 20178
+    AegisName: GENERAL_ORC
+    Name: General Orc
+    Level: 255
+    Hp: 8973687
+    BaseExp: 320489
+    JobExp: 213659
+    Attack: 11293
+    Attack2: 4904
+    Defense: 570
+    MagicDefense: 149
+    MagicResistance: 297
+    Resistance: 347
+    Str: 270
+    Agi: 214
+    Vit: 90
+    Int: 170
+    Dex: 309
+    Luk: 80
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Demihuman
+    Element: Dark
+    ElementLevel: 2
+    WalkSpeed: 150
+    AttackDelay: 1500
+    AttackMotion: 500
+    DamageMotion: 1000
+    Ai: 04  # TODO
+    Drops:
+      - Item: Steel
+        Rate: 225
+      - Item: Oridecon
+        Rate: 98
+      - Item: Elunium
+        Rate: 133
+  - Id: 20179
+    AegisName: SIEGLOUSE
+    Name: Sieglouse
+    Level: 253
+    Hp: 9083122
+    BaseExp: 324397
+    JobExp: 216265
+    Attack: 10997
+    Attack2: 4223
+    Defense: 380
+    MagicDefense: 103
+    MagicResistance: 200
+    Resistance: 200
+    Str: 230
+    Agi: 311
+    Vit: 80
+    Int: 70
+    Dex: 310
+    Luk: 77
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Insect
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 100
+    AttackDelay: 960
+    AttackMotion: 500
+    DamageMotion: 480
+    Ai: 04  # TODO
+    Modes:
+      Detector: true
+    Drops:
+      - Item: Round_Shell
+        Rate: 8750
+      - Item: Solid_Shell
+        Rate: 2000
+      - Item: Great_Nature
+        Rate: 50
+      - Item: Red_Gemstone
+        Rate: 750
+      - Item: Shining_Round_Shell
+        Rate: 1900
+      - Item: Gold
+        Rate: 1
 #  - Id: 20180
 #    AegisName: TACNU_BRZ
 #  - Id: 20181

@@ -64757,6 +64757,13 @@ Body:
     Script: |
       specialeffect2 EF_POTION_BERSERK;
       sc_start SC_INFINITY_DRINK,1800000,0;
+  - Id: 101099
+    AegisName: ClockTower_Regulator
+    Name: Spring Regulator
+    Type: DelayConsume
+    Weight: 10
+    Script: |
+      item_enchant(24);
   - Id: 101103
     AegisName: Enchant_Stone_Box25
     Name: Costume Enchant Stone Box 25
