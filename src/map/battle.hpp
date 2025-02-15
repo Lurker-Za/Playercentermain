@@ -771,6 +771,11 @@ struct Battle_Config
 	int32 loot_range;
 	int32 assist_range;
 
+	int feature_goldpc_active;
+	int feature_goldpc_time;
+	int feature_goldpc_max_points;
+	int feature_goldpc_vip;
+
 #include <custom/battle_config_struct.inc>
 };
 
